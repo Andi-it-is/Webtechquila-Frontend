@@ -1,1 +1,173 @@
 // app global css in SCSS form
+html,
+body {
+  font-family: 'Inter', sans-serif !important;
+}
+
+:root {
+  /* vars */
+  --hue: 264;
+  --hue-secondary: calc(var(--hue) + 180);
+  --chroma: 0.05;
+
+  /* bg */
+  --highlight: oklch(0.5 var(--chroma) var(--hue));
+
+  /* border */
+  --highlight: oklch(0.5 var(--chroma) var(--hue));
+  --border: oklch(0.4 var(--chroma) var(--hue));
+  --border-muted: oklch(0.3 var(--chroma) var(--hue));
+  --border-card: solid 1px var(--border-muted);
+
+
+  /* type */
+  --ff: "Inter", sans-serif !important;
+  --h1: 700 1.5rem/1.2em var(--ff);
+  --h2: 700 1.25rem/1.2em var(--ff);
+  --h3: 700 1.125rem/1.4em var(--ff);
+  --h4: 700 1rem/1.6em var(--ff);
+  --p: 400 1rem/1.6em var(--ff);
+  --small: 400 0.75rem/1.8em var(--ff);
+
+  /* shadows */
+  --shadow: 0px 2px 2px oklch(0 0 0 / 0.2), 0px 4px 4px oklch(0 0 0 / 0.1);
+}
+
+.body--light {
+
+  /* oklch */
+  --bg-nav-topbar: oklch(0.4 0.1 264);
+  --bg-nav: oklch(0.84 0.02 264);
+  --bg-dark: oklch(0.92 0.02 264);
+  --bg: oklch(0.96 0.02 264);
+  --bg-light: oklch(1 0.02 264);
+  --bg-blank-action: oklch(0.2 0.02 264);
+
+  --text: oklch(0.15 0.04 264);
+  --text-muted: oklch(0.3 0.04 264);
+  --text-action: oklch(0.98 0.015 248);
+
+  --gradient: linear-gradient(0deg, var(--bg) 97%, var(--bg-light));
+  --gradient-hover: linear-gradient(0deg, var(--bg), var(--bg-light));
+
+  --highlight: oklch(1 0.04 264);
+  --border: oklch(0.6 0.04 264);
+  --border-muted: oklch(0.7 0.04 264);
+  --border-card: solid 1px var(--bg);
+
+  --primary: oklch(0.4 0.1 264);
+  --secondary: oklch(0.4 0.1 4);
+  --danger: oklch(0.5 0.05 30);
+  --warning: oklch(0.5 0.05 100);
+  --success: oklch(0.5 0.05 160);
+  --info: oklch(0.5 0.05 260);
+
+
+  // Quasars internal variables
+  --q-primary: oklch(0.4 0.1 264);
+  --q-secondary: oklch(0.4 0.1 4);
+  --q-accent: oklch(0.4 0.1 4);
+
+  --q-negative: oklch(0.5 0.05 30);
+  --q-warning: oklch(0.5 0.05 100);
+  --q-positive: oklch(0.5 0.05 160);
+  --q-info: oklch(0.5 0.05 260);
+
+}
+
+.body--dark {
+
+  /* oklch */
+  --bg-nav-topbar: oklch(0.4 0.1 264);
+  --bg-nav: oklch(0.04 0.02 264);
+  --bg-dark: oklch(0.12 0.02 264);
+  --bg: oklch(0.17 0.02 264);
+  --bg-light: oklch(0.23 0.02 264);
+  --bg-blank-action: oklch(1 0.02 264);
+
+  --text: oklch(0.96 0.04 264);
+  --text-muted: oklch(0.8 0.04 264);
+  --text-action: oklch(0.1 0.02 264);
+
+  --gradient: linear-gradient(0deg, var(--bg) 97%, var(--bg-light));
+  --gradient-hover: linear-gradient(0deg, var(--bg), var(--bg-light));
+
+  --highlight: oklch(0.5 0.04 264);
+  --border: oklch(0.4 0.04 264);
+  --border-muted: oklch(0.3 0.04 264);
+
+  --primary: oklch(0.76 0.1 264);
+  --secondary: oklch(0.76 0.1 359);
+  --danger: oklch(0.7 0.05 30);
+  --warning: oklch(0.7 0.05 100);
+  --success: oklch(0.7 0.05 160);
+  --info: oklch(0.7 0.05 260);
+
+
+  // Quasars internal variables
+  --q-primary: oklch(0.76 0.1 264);
+  --q-secondary: oklch(0.76 0.1 359);
+  --q-accent: oklch(0.76 0.1 359);
+
+  --q-negative: oklch(0.7 0.05 30);
+  --q-warning: oklch(0.7 0.05 100);
+  --q-positive: oklch(0.7 0.05 160);
+  --q-info: oklch(0.7 0.05 260);
+
+  --q-dark-page: oklch(0.17 0.02 264);
+}
+
+/* Layout background / text */
+body.body--light,
+body.body--dark {
+  background-color: var(--bg-dark);
+  color: var(--text);
+}
+
+a {
+  color: var(--text);
+  font-size: 1rem;
+}
+
+// Globally applied CSS to quasars components
+
+/* Quasar buttons */
+.q-btn {
+  // background-color: var(--primary);
+  // border: 1px solid var(--border-muted);
+  border-radius: 8px;
+  color: var(--text-action);
+  text-transform: none;
+
+}
+
+.q-btn:focus-visible {
+  outline: 2px solid var(--secondary) !important;
+  outline-offset: 0.25rem;
+}
+
+// icons in a q-timeline, when darkmode is set
+body.body--dark {
+  .q-timeline__dot .q-icon {
+    color: var(--text-action) !important;
+  }
+}
+
+.q-timeline__subtitle {
+  opacity: 0.8;
+  letter-spacing: 1px;
+  font-size: inherit;
+}
+
+.q-timeline__content {
+  color: var(--text-muted);
+}
+
+.q-timeline__title {
+  color: var(--text);
+}
+
+.q-separator {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
