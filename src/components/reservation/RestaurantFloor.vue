@@ -2216,6 +2216,7 @@
 <script>
 import { computed, defineComponent, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useCheckoutStore } from 'src/stores/checkoutStore';
 
 export default defineComponent({
   
@@ -2229,24 +2230,27 @@ export default defineComponent({
     const tableColors = ref([])
     const openDialog = ref(false)
     const selectedTable = ref(null)
-    const tableAvailable = ref(false)
+    const tableAvailable = ref(true)
+    const store = useCheckoutStore()
 
     async function handleClick(event) {
       const color = event.target.style.fill
       
-      if (color == 'rgb(73, 236, 122)') {
-        tableAvailable.value = true
+      // if (color == 'rgb(73, 236, 122)') {
+      //   tableAvailable.value = true
 
-      } else if (color == 'rgb(227, 24, 55)') {
-        tableAvailable.value = false
-      }
+      // } else if (color == 'rgb(227, 24, 55)') {
+      //   tableAvailable.value = false
+      // }
 
       selectedTable.value = event.target.id
       openDialog.value = true
 
     }
     async function navToOrderSection(id) {
-      router.push(`/order/${id}`)
+
+      store.setOrderId(id)
+      router.push(`/reservation/checkout`)
     }
 
     const allTables = document.querySelectorAll('.table')

@@ -7,6 +7,13 @@ const routes = [
       { path: 'reservation', component: () => import('pages/ReserveTable.vue') },
     ]
   },
+  {
+    path: '/',
+    component: () => import('layouts/CheckoutLayout.vue'),
+    children: [
+      { path: 'reservation/checkout', component: () => import('pages/CheckoutTable.vue') },
+    ]
+  },
 
   // Always leave this as last one,
   // but you can also remove it

@@ -1,42 +1,44 @@
 <template lang="pug">
 
-div(class="content-wrapper")
+div(style="display: flex; justify-content: center")
+  h4 Tisch Reservieren 
+div(:class="seatPreferenceCheckbox ? 'content-wrapper-double' : 'content-wrapper-single' " )
+  div(class="form-wrapper")
+    div(class="input-container")
+      div(class="individual-input-container")
+        label Personen
+        q-input(v-model="reservationData.people" dense outlined)
+      div(class="individual-input-container")
+        label Datum
+        q-input(v-model="reservationData.date" :rules="[validateGermanDate]" mask="##.##.####" fill-mask dense outlined)
+          template(v-slot:append)
+            q-icon(name="event" class="cursor-pointer")
+              q-popup-proxy(cover transition-show="scale" transition-hide="scale")
+                q-date(
+                  v-model="reservationData.date"
+                  mask="DD.MM.YYYY"
+                  locale="de-DE"
+                  today-btn
+                )
+                  div()
+                    q-btn(v-close-popup label="Schließen" color="primary" flat)
+    div(class="grid-container")
+      div(v-for="i in 15")
+        p {{ i }}
 
-  div(class="input-container")
-    div(class="individual-input-container")
-      label Personen
-      q-input(v-model="reservationData.people" dense outlined)
-    div(class="individual-input-container")
-      label Datum
-      q-input(v-model="reservationData.date" :rules="[validateGermanDate]" mask="##.##.####" fill-mask dense outlined)
-        template(v-slot:append)
-          q-icon(name="event" class="cursor-pointer")
-            q-popup-proxy(cover transition-show="scale" transition-hide="scale")
-              q-date(
-                v-model="reservationData.date"
-                mask="DD.MM.YYYY"
-                locale="de-DE"
-                today-btn
-              )
-                div()
-                  q-btn(v-close-popup label="Schließen" color="primary" flat)
-  div(class="grid-container")
-    div(v-for="i in 15")
-      p {{ i }}
+    q-separator(class="mini-separator")
+    div(class="input-container")
+      div(class="individual-input-container")
+        label Sitzplatz
+        q-checkbox(v-model="seatPreferenceCheckbox") Ich möchte aussuchen, wo ich sitze
 
-  
-  q-separator(class="mini-separator")
-  div(class="input-container")
-    div(class="individual-input-container")
-      label Sitzplatz
-      q-checkbox(v-model="seatPreferenceCheckbox") Ich möchte aussuchen, wo ich sitze
+    div(class="order-btn-container" v-if="!seatPreferenceCheckbox")
+      q-btn(class="btn-primary") Reservieren
 
-  div(class="order-btn-container" v-if="!seatPreferenceCheckbox")
-    q-btn(class="btn-primary") Reservieren
-
-div(v-if="seatPreferenceCheckbox")
-  div(class="svg-container")
-    RestaurantFloor()
+  transition(name="slide-card")
+    div(v-if="seatPreferenceCheckbox")
+      div(class="svg-container")
+        RestaurantFloor()
 </template>
 
 <script setup>
@@ -105,18 +107,41 @@ onMounted(() => {
   gap: 1rem;
 }
 
-.content-wrapper{
+.content-wrapper-single{
+  display: flex; 
+  flex-wrap: wrap; 
+  align-items: stretch; 
+  gap: 1rem; 
+  padding: 1rem; 
+  padding-left: 10%;  
+  min-height: 100vh;
+  /* justify-content: center; */
+
+}
+
+.content-wrapper-double{
+  display: flex; 
+  flex-wrap: wrap; 
+  align-items: stretch; 
+  gap: 1rem; 
+  padding: 1rem; 
+  justify-content: center;
+  transition: padding 0.3s ease-out;
+  min-height: 100vh;
+}
+
+.form-wrapper{
   display: flex;
   flex-direction: column;
   gap: 1rem;
   padding: 2rem;
   background-color: var(--bg);
-  /* align-items: flex-start;
-  padding-left: 20%; */
-  align-items: flex-start;
-  max-width: fit-content;
-  margin: auto;
   margin-top: 1rem;
+  max-width: fit-content;
+  max-height: fit-content;
+  border-radius: 1rem;
+  align-self: flex-start;   /* prevents parent flex from stretching. used because container looks different in chrome vs firefox */
+
 }
 
 .svg-container{
@@ -129,6 +154,7 @@ onMounted(() => {
   background-color: oklch(0.96 0.02 264);
   margin: auto;
   margin-top: 1rem;
+  border-radius: 1rem;
 }
 .filter-bar-container{
   background-color: var(--bg);
@@ -169,4 +195,30 @@ onMounted(() => {
   background-color: var(--primary);
   color: var(--text-action);
 }
+
+
+.slide-card-enter-from {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+.slide-card-enter-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.slide-card-enter-to {
+  opacity: 1;
+  transform: translateX(0);
+}
+.slide-card-leave-from {
+  opacity: 1;
+  transform: translateX(0px);
+}
+.slide-card-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.slide-card-leave-to {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+
 </style>
