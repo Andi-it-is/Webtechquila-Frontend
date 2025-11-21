@@ -2,7 +2,7 @@
 
   q-layout(view="hHh LpR lFr")
 
-    q-page-container()
+    q-page-container(style="padding: 1rem")
       p das ist das layout von checkout
       router-view()
 </template>

@@ -1,5 +1,8 @@
 <template lang="pug">
 
+  q-stepper(
+    v-model="activeStep"
+  )
   div(style="background-color: aqua; padding: 2rem")
     p im checkout page
 
@@ -18,6 +21,9 @@ function navToReservation(){
   return router.push("/reservation")
 }
 
+const activeStep = ref(1)
+
+
 const isEarlyLeave = ref(true)
 
 // 1. Browser reload/close protection
@@ -30,6 +36,18 @@ const beforeUnloadHandler = (event) => {
   event.returnValue = ""
 }
 
+// 2. In-app navigation protection
+onBeforeRouteLeave((to, from, next) => {
+  
+  console.log(to, from, next)
+  if (!isEarlyLeave.value) return next()
+  
+  const answer = confirm(
+    "You have unsaved changes. If you leave now, your progress will be lost."
+  )
+  next(answer)
+})
+
 onMounted(() => {
   console.log("checkoutTable.vue file - store: ", store.getOrderId())
 
@@ -38,18 +56,6 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener("beforeunload", beforeUnloadHandler)
-})
-
-// 2. In-app navigation protection
-onBeforeRouteLeave((to, from, next) => {
-
-  console.log(to, from, next)
-  if (!isEarlyLeave.value) return next()
-
-  const answer = confirm(
-    "You have unsaved changes. If you leave now, your progress will be lost."
-  )
-  next(answer)
 })
 
 </script>
