@@ -12,6 +12,10 @@ export const useCheckoutStore = defineStore('checkout', {
       return this.orderId
     },
 
+    getOrderData() {
+      return this.orderData
+    },
+
     setOrderId(id) {
       this.orderId = id
     },

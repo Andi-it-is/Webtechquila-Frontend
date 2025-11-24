@@ -2194,7 +2194,7 @@
 
       <q-card-actions class="justify-between">
         <q-btn flat label="Zurück" color="primary" @click="openDialog = false" />
-        <q-btn flat label="Zur Buchung" color="primary" @click="navToOrderSection(selectedTable)" />
+        <q-btn flat label="Zur Buchung" color="primary" @click="sendToParent" />
       </q-card-actions>
     </q-card>
 
@@ -2222,6 +2222,14 @@ export default defineComponent({
   
   name: 'RestaurantFloor',
 
+  emits: 'orderData',
+
+  methods: {
+    sendToParent() {
+      this.$emit('orderData', { tableId: this.selectedTable })
+    }
+  },
+
   setup() {
 
     const router = useRouter()
@@ -2246,11 +2254,6 @@ export default defineComponent({
       selectedTable.value = event.target.id
       openDialog.value = true
 
-    }
-    async function navToOrderSection(id) {
-
-      store.setOrderId(id)
-      router.push(`/reservation/checkout`)
     }
 
     const allTables = document.querySelectorAll('.table')
@@ -2297,7 +2300,6 @@ export default defineComponent({
       svgContainer,
       handleClick,
       openDialog,
-      navToOrderSection,
       selectedTable,
       tableAvailable
     }

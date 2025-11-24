@@ -48,19 +48,24 @@ div(:class="seatPreferenceCheckbox ? 'content-wrapper-double' : 'content-wrapper
         q-checkbox(v-model="seatPreferenceCheckbox") Ich möchte aussuchen, wo ich sitze
 
     div(class="order-btn-container" v-if="!seatPreferenceCheckbox")
-      q-btn(class="btn-primary") Reservieren
+      q-btn(class="btn-primary" @click="navToCheckout()") Reservieren
 
   transition(name="slide-card")
     div(v-if="seatPreferenceCheckbox")
       div(class="svg-container")
-        RestaurantFloor()
+        RestaurantFloor(@orderData="handleEmit")
 </template>
 
 <script setup>
 import RestaurantFloor from 'src/components/reservation/RestaurantFloor.vue';
-import { ref, onMounted, computed } from 'vue';
+import { useCheckoutStore } from 'src/stores/checkoutStore';
+import { ref, onMounted, computed, onUnmounted } from 'vue';
+import { useRouter, onBeforeRouteLeave } from 'vue-router';
+
+const store = useCheckoutStore()
 
 const activeTab = ref('a')
+const router = useRouter()
 
 const seatPreferenceCheckbox = ref(false)
 
@@ -135,6 +140,28 @@ function validateGermanDate(val) {
   return isValid || 'Ungültiges Datum'
 }
 
+/**
+ * Function to handle event emit from a component. when resrving table through this component, nav to checkout
+ * @param data data from RestaurantFloor Component
+ */
+function handleEmit(data) {
+  const tableId = data.tableId
+  store.setOrderId(tableId)
+
+  navToCheckout()
+}
+
+function navToCheckout() {
+
+  store.setOrderData(reservationData.value)
+  // TODO
+
+  // if form valid
+  router.push(`/reservation/checkout`)
+
+  // else pls fill in form :)
+
+}
 
 onMounted(() => {
 
@@ -157,6 +184,18 @@ onMounted(() => {
   allowedEndDate = end
 
 })
+
+onBeforeRouteLeave((to, from, next) => {
+  if (to.path === '/reservation/checkout') {
+    console.log("remained store untouched")
+    next()
+  } else {
+    console.log("cleared store")
+    store.clear()
+    next()
+  }
+})
+
 
 </script>
 
