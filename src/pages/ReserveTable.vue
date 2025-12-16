@@ -2,6 +2,11 @@
 
 div(style="display: flex; justify-content: center")
   h4 Tisch Reservieren 
+div(style="border: 2px solid green; display: flex; width: fit-content; margin: auto; gap: 1rem; padding: 1rem")
+  div
+    p hier kommt kontakt informationen
+  div
+    p hier kommt Öffnungszeiten und shit
 div(:class="seatPreferenceCheckbox ? 'content-wrapper-double' : 'content-wrapper-single' " )
   div(class="form-wrapper")
     q-form(class="input-container")
