@@ -1,5 +1,7 @@
 <template lang="pug">
 
+div(v-for="link in stockfootage" style="display: flex")
+  img(:src="link")
 div(style="display: flex; justify-content: center")
   h4 Tisch Reservieren 
 div(style="border: 2px solid green; display: flex; width: fit-content; margin: auto; gap: 1rem; padding: 1rem")
@@ -55,10 +57,12 @@ div(:class="seatPreferenceCheckbox ? 'content-wrapper-double' : 'content-wrapper
     div(class="order-btn-container" v-if="!seatPreferenceCheckbox")
       q-btn(class="btn-primary" @click="navToCheckout()") Reservieren
 
+
   transition(name="slide-card")
     div(v-if="seatPreferenceCheckbox")
       div(class="svg-container")
         RestaurantFloor(@orderData="handleEmit")
+
 </template>
 
 <script setup>
@@ -201,6 +205,17 @@ onBeforeRouteLeave((to, from, next) => {
   }
 })
 
+const stockfootage = [
+  "https://picsum.photos/id/225/300/200",
+  "https://picsum.photos/id/292/300/200",
+  "https://picsum.photos/id/429/300/200",
+  "https://picsum.photos/id/488/300/200",
+  "https://picsum.photos/id/766/300/200",
+  "https://picsum.photos/id/999/300/200",
+  "https://picsum.photos/id/1080/300/200",
+
+
+]
 
 </script>
 
