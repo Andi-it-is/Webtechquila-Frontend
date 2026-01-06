@@ -1,14 +1,21 @@
 <template lang="pug">
 
-div(v-for="link in stockfootage" style="display: flex")
-  img(:src="link")
+div(class="stockfootage-container")
+  div(v-for="link in stockfootage" :key="link" class="img-wrapper")
+    img(:src="link")
+    
 div(style="display: flex; justify-content: center")
-  h4 Tisch Reservieren 
-div(style="border: 2px solid green; display: flex; width: fit-content; margin: auto; gap: 1rem; padding: 1rem")
+  h2 Tisch Reservieren 
+div(style="background-color: var(--bg); border-radius: 1rem; display: flex; width: fit-content; margin: auto; gap: 4rem; padding: 2rem")
   div
-    p hier kommt kontakt informationen
+    p(style="font-weight: 700; font-size: 1.125rem") Kontakt
+    p <strong>Restaurant Webtechquila </strong> 
+    p Düsseldorf, Toulouser Allee 53
+    p Telefon: +123 <br/> Mail: mailto:mail@mail.de
   div
-    p hier kommt Öffnungszeiten und shit
+    p(style="font-weight: 700; font-size: 1.125rem") Öffnungszeiten
+    p <strong>Montag & Dienstag</strong> <br/> Ruhetag
+    p <strong>Mittwoch bis Sonntag</strong> <br/> 11:00 - 15:00 <br/> 18:00 - 23:00
 div(:class="seatPreferenceCheckbox ? 'content-wrapper-double' : 'content-wrapper-single' " )
   div(class="form-wrapper")
     q-form(class="input-container")
@@ -206,16 +213,13 @@ onBeforeRouteLeave((to, from, next) => {
 })
 
 const stockfootage = [
-  "https://picsum.photos/id/225/300/200",
-  "https://picsum.photos/id/292/300/200",
-  "https://picsum.photos/id/429/300/200",
   "https://picsum.photos/id/488/300/200",
-  "https://picsum.photos/id/766/300/200",
   "https://picsum.photos/id/999/300/200",
-  "https://picsum.photos/id/1080/300/200",
-
-
+  "https://picsum.photos/id/292/300/200",
+  "https://picsum.photos/id/225/300/200",
 ]
+
+const pageNumber = ref(1)
 
 </script>
 
@@ -351,5 +355,36 @@ const stockfootage = [
   transform: translateX(-20px);
 }
 
+.stockfootage-container{
+  display: flex; 
+  width: 100%; 
+  flex: 1 1 100%; 
+  margin-bottom: 2rem; 
+  justify-content: center;
+  padding-top: 1rem;
+  gap: 0.5rem;
+}  
 
+h2 {
+  font-size: 2.25rem;
+  font-weight: 700;
+}
+
+@media (max-width: 1300px) {
+  .img-wrapper:nth-child(n + 4) {
+    display: none;
+  }
+}
+@media (max-width: 1000px) {
+  .img-wrapper:nth-child(n + 3) {
+    display: none;
+  }
+}
+
+/* expand upon this mediq query to mobile views. adjust the spacing from the input menu card and the restaurant floor svg */
+@media (max-width: 700px) {
+  .img-wrapper:nth-child(n + 2) {
+    display: none;
+  }
+}
 </style>
