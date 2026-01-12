@@ -22,7 +22,11 @@ div(class="content-wrapper-single")
       p <strong>Mittwoch bis Sonntag</strong> <br/> 11:00 - 15:00 <br/> 18:00 - 23:00
 div(class="content-wrapper-single")
   div(class="form-wrapper")
-    q-form(class="input-container")
+    q-form(
+      class="input-container" 
+      ref="formRef" 
+      @submit="onSubmit"
+    )
       div(class="individual-input-container")
         label Personen
         q-select(
@@ -64,7 +68,7 @@ div(class="content-wrapper-single")
       q-checkbox(v-model="seatPreferenceCheckbox") Ich möchte aussuchen, wo ich sitze
 
     div(class="order-btn-container" v-if="!seatPreferenceCheckbox")
-      q-btn(class="btn-primary" @click="navToCheckout()") Reservieren
+      q-btn(class="btn-primary" type="submit" @click="onSubmit()") Reservieren
 
 
   transition(name="slide-card")
@@ -179,6 +183,22 @@ function navToCheckout() {
 
   // else pls fill in form :)
 
+}
+
+const formRef = ref(null)
+
+function onSubmit() {
+  console.log("submiiiiiiiiittttttttttted")
+
+  formRef.value.validate().then(valid => {
+    if (!valid) return
+
+    else {
+
+      console.log('Form submitted:', reservationData.value)
+      navToCheckout()
+    }
+  })
 }
 
 onMounted(() => {

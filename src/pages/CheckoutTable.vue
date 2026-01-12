@@ -34,7 +34,7 @@ div(style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap-re
       div(style="min-width: 100px")
         .read-only-label Personen
         p 4
-  //- q-btn(style="margin-top: 20rem" @click="navToReservation()" label="route nav")
+
 </template>
 
 <script setup>
@@ -50,9 +50,8 @@ function navToReservation(){
   return router.push("/reservation")
 }
 
-
-
 const isEarlyLeave = ref(true)
+
 
 // 1. Browser reload/close protection
 const beforeUnloadHandler = (event) => {
@@ -76,6 +75,8 @@ onBeforeRouteLeave((to, from, next) => {
 onMounted(() => {
 
   window.addEventListener("beforeunload", beforeUnloadHandler)
+
+  console.log("store. get data ", store.getOrderData())
 })
 
 onUnmounted(() => {

@@ -2188,7 +2188,7 @@
   <q-dialog v-model="openDialog" persistent>
     <q-card v-if="tableAvailable">
       <q-card-section class="row items-center">
-        <q-avatar icon="list_alt" color="secondary" text-color="black" />
+        <q-avatar icon="list_alt" color="white" text-color="black" />
         <span class="q-ml-sm">Weiter zur Buchung von Tisch {{ selectedTable }}</span>
       </q-card-section>
 
@@ -2200,7 +2200,7 @@
 
     <q-card v-if="!tableAvailable">
       <q-card-section class="row items-center">
-        <q-avatar icon="list_alt" color="secondary" text-color="black" />
+        <q-avatar icon="list_alt" color="white" text-color="black" />
         <span class="q-ml-sm">Tisch {{ selectedTable }} kann für den Zeitraum nicht gebucht werden</span>
       </q-card-section>
 
