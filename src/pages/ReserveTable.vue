@@ -6,17 +6,21 @@ div(class="stockfootage-container")
     
 div(style="display: flex; justify-content: center")
   h2 Tisch Reservieren 
-div(style="background-color: var(--bg); border-radius: 1rem; display: flex; width: fit-content; margin: auto; gap: 4rem; padding: 2rem")
-  div
-    p(style="font-weight: 700; font-size: 1.125rem") Kontakt
-    p <strong>Restaurant Webtechquila </strong> 
-    p Düsseldorf, Toulouser Allee 53
-    p Telefon: +123 <br/> Mail: mailto:mail@mail.de
-  div
-    p(style="font-weight: 700; font-size: 1.125rem") Öffnungszeiten
-    p <strong>Montag & Dienstag</strong> <br/> Ruhetag
-    p <strong>Mittwoch bis Sonntag</strong> <br/> 11:00 - 15:00 <br/> 18:00 - 23:00
-div(:class="seatPreferenceCheckbox ? 'content-wrapper-double' : 'content-wrapper-single' " )
+div(class="content-wrapper-single")
+  div(class="info-container")
+    div
+      p(style="font-weight: 700; font-size: 1.125rem") Kontakt
+      p <strong>Restaurant Webtechquila </strong> 
+      p Düsseldorf, Toulouser Allee 53
+      p(style="margin-bottom: 0px") Telefon: +49 1234 567890 
+      p
+        | Mail:
+        a( href="mailto:mail@mail.de" style="font-size: 14px; text-decoration: underline; margin-left: 4px") mail@mail.de
+    div
+      p(style="font-weight: 700; font-size: 1.125rem") Öffnungszeiten
+      p <strong>Montag & Dienstag</strong> <br/> Ruhetag
+      p <strong>Mittwoch bis Sonntag</strong> <br/> 11:00 - 15:00 <br/> 18:00 - 23:00
+div(class="content-wrapper-single")
   div(class="form-wrapper")
     q-form(class="input-container")
       div(class="individual-input-container")
@@ -56,10 +60,8 @@ div(:class="seatPreferenceCheckbox ? 'content-wrapper-double' : 'content-wrapper
           p {{ i }}
 
     q-separator(class="mini-separator")
-    div(class="input-container")
-      div(class="individual-input-container")
-        label Sitzplatz
-        q-checkbox(v-model="seatPreferenceCheckbox") Ich möchte aussuchen, wo ich sitze
+    div(class="individual-input-container")
+      q-checkbox(v-model="seatPreferenceCheckbox") Ich möchte aussuchen, wo ich sitze
 
     div(class="order-btn-container" v-if="!seatPreferenceCheckbox")
       q-btn(class="btn-primary" @click="navToCheckout()") Reservieren
@@ -68,7 +70,7 @@ div(:class="seatPreferenceCheckbox ? 'content-wrapper-double' : 'content-wrapper
   transition(name="slide-card")
     div(v-if="seatPreferenceCheckbox")
       div(class="svg-container")
-        RestaurantFloor(@orderData="handleEmit")
+        RestaurantFloor(@orderData="handleEmit" style="overflow: scroll")
 
 </template>
 
@@ -232,6 +234,8 @@ const pageNumber = ref(1)
 .input-container{
   display: flex;
   gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .content-wrapper-single{
@@ -240,9 +244,7 @@ const pageNumber = ref(1)
   align-items: stretch; 
   gap: 1rem; 
   padding: 1rem; 
-  padding-left: 10%;  
-  min-height: 100vh;
-  /* justify-content: center; */
+  justify-content: center;
 
 }
 
@@ -275,7 +277,7 @@ const pageNumber = ref(1)
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
+  padding: 1.75rem;
   width: fit-content;
   height: fit-content;
   background-color: oklch(0.96 0.02 264);
@@ -370,6 +372,16 @@ h2 {
   font-weight: 700;
 }
 
+.info-container{
+  background-color: var(--bg); 
+  border-radius: 1rem; 
+  display: flex; 
+  width: fit-content; 
+  margin: auto; 
+  gap: 4rem; 
+  padding: 2rem;
+}
+
 @media (max-width: 1300px) {
   .img-wrapper:nth-child(n + 4) {
     display: none;
@@ -385,6 +397,20 @@ h2 {
 @media (max-width: 700px) {
   .img-wrapper:nth-child(n + 2) {
     display: none;
+  }
+
+  .grid-container{
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .info-container{
+    gap: 1rem;
+    padding: 1rem;
+    padding-top: 2rem;
+  }
+
+  .svg-container{
+    aspect-ratio: 4/3;
   }
 }
 </style>
