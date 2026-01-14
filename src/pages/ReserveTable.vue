@@ -11,7 +11,7 @@ div(class="content-wrapper-single")
     div
       p(style="font-weight: 700; font-size: 1.125rem") Kontakt
       p <strong>Restaurant Webtechquila </strong> 
-      p Düsseldorf, Toulouser Allee 53
+      p Toulouser Allee 53,<br> 40476 Düsseldorf
       p(style="margin-bottom: 0px") Telefon: +49 1234 567890 
       p
         | Mail:
@@ -19,7 +19,7 @@ div(class="content-wrapper-single")
     div
       p(style="font-weight: 700; font-size: 1.125rem") Öffnungszeiten
       p <strong>Montag & Dienstag</strong> <br/> Ruhetag
-      p <strong>Mittwoch bis Sonntag</strong> <br/> 11:00 - 15:00 <br/> 18:00 - 23:00
+      p <strong>Mittwoch bis Sonntag</strong> <br/> 11:00 - 15:00 <br/> 17:00 - 23:00
 div(class="content-wrapper-single")
   div(class="form-wrapper")
     q-form(
@@ -81,8 +81,9 @@ div(class="content-wrapper-single")
 <script setup>
 import RestaurantFloor from 'src/components/reservation/RestaurantFloor.vue';
 import { useCheckoutStore } from 'src/stores/checkoutStore';
-import { ref, onMounted, computed, onUnmounted } from 'vue';
+import { ref, onMounted, computed, onUnmounted, watch } from 'vue';
 import { useRouter, onBeforeRouteLeave } from 'vue-router';
+import { api } from 'src/boot/axios';
 
 const store = useCheckoutStore()
 
@@ -93,8 +94,7 @@ const seatPreferenceCheckbox = ref(false)
 
 const reservationData = ref({
   guests: null,
-  date: new Date(),
-  time: new Date(),
+  date: null,
 })
 const guestsOptions = [
   { value: 1, label: "1"},
@@ -173,15 +173,13 @@ function handleEmit(data) {
   navToCheckout()
 }
 
-function navToCheckout() {
+async function navToCheckout() {
 
   store.setOrderData(reservationData.value)
-  // TODO
 
-  // if form valid
+  const result = await api.get('/hello')
+  console.log(result)
   router.push(`/reservation/checkout`)
-
-  // else pls fill in form :)
 
 }
 
@@ -201,6 +199,21 @@ function onSubmit() {
   })
 }
 
+// watch changes in user input, get new timeslot results
+watch(reservationData.value, () => {
+  getAvailableTimeslots()
+}, { deep: true }
+)
+function getAvailableTimeslots() {
+
+  // api call only if both user inputs are not empty
+  if (reservationData.value.guests && reservationData.value.date) {
+    console.log("//// beobachtete daten sind nicht leer \n", reservationData.value) 
+  } else {
+    console.log("getAvailableTimeslots() ausgeführt")
+  }
+}
+
 onMounted(() => {
 
   // building todays date, and casting it into german format DD.MM.YYYY
@@ -211,7 +224,7 @@ onMounted(() => {
 
   const todayAsGermanDate = `${day}.${month}.${year}`
 
-  reservationData.value.date = todayAsGermanDate
+  // reservationData.value.date = todayAsGermanDate
 
   // declaring the allowed range, in which resrevatios can be taken
   let end = new Date()
@@ -310,21 +323,6 @@ const pageNumber = ref(1)
   display: flex;
   margin: auto;
 }
-.tab-content{
-  background-color: var(--bg);
-  border: 2px solid var(--primary);
-  border-radius: 1rem;
-  padding: 1rem;
-}
-.q-tab-panel{
-  padding: 0 !important;
-  margin: auto;
-}
-.q-tab-panels{
-  background-color: var(--bg);
-  padding: 0.5rem;
-}
-
 .mini-separator{
   margin: 0rem;
   width: 100%;

@@ -38,7 +38,7 @@ div(style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap-re
         label Notiz an das Restaurant (Optional)
         q-input(v-model="checkoutData.note" dense outlined type="textarea")
     div(style="display: flex; justify-content: space-between; margin-top: 1rem")
-      q-btn(class="action-button" unelevated) Abbrechen
+      q-btn(class="action-button" unelevated @click="navToReservation()") Abbrechen
       q-btn(class="btn-primary" tyoe="submit" @click="onSubmit()") Tisch reservieren
 
     
@@ -129,7 +129,7 @@ onMounted(() => {
   const orderData = store.getOrderData()
   // if the global store is empty, leave page 
   if (!orderData) {
-    router.push("/")
+    return router.push("/")
   }
   reservationData.value.guests = orderData.guests.value
   reservationData.value.date = orderData.date
