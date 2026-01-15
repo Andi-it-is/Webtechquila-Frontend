@@ -19,7 +19,7 @@ div(class="content-wrapper-single")
     div
       p(style="font-weight: 700; font-size: 1.125rem") Öffnungszeiten
       p <strong>Montag & Dienstag</strong> <br/> Ruhetag
-      p <strong>Mittwoch bis Sonntag</strong> <br/> 11:00 - 15:00 <br/> 17:00 - 23:00
+      p <strong>Mittwoch bis Sonntag</strong> <br/> 15:00 bis 23:00
 div(class="content-wrapper-single")
   div(class="form-wrapper")
     q-form(
@@ -57,6 +57,7 @@ div(class="content-wrapper-single")
                 )
                   div()
                     q-btn(v-close-popup label="Schließen" color="primary" flat)
+    p best fit
     div(class="grid-container")
       // use pagination for available timeslots.
       div(v-for="i in 10")
@@ -70,9 +71,9 @@ div(class="content-wrapper-single")
     div(class="order-btn-container" v-if="!seatPreferenceCheckbox")
       q-btn(class="btn-primary" type="submit" @click="onSubmit()") Reservieren
 
-
   transition(name="slide-card")
     div(v-if="seatPreferenceCheckbox")
+      p sizeOptimizedOptions
       div(class="svg-container")
         RestaurantFloor(@orderData="handleEmit" style="overflow: scroll")
 
@@ -204,11 +205,16 @@ watch(reservationData.value, () => {
   getAvailableTimeslots()
 }, { deep: true }
 )
-function getAvailableTimeslots() {
+async function getAvailableTimeslots() {
 
   // api call only if both user inputs are not empty
   if (reservationData.value.guests && reservationData.value.date) {
-    console.log("//// beobachtete daten sind nicht leer \n", reservationData.value) 
+    const reqObj = {
+      guests: reservationData.value.guests.value,
+      date: reservationData.value.date
+    }
+    const response = await api.post('/timeslots', reqObj)
+    console.log(response)
   } else {
     console.log("getAvailableTimeslots() ausgeführt")
   }
