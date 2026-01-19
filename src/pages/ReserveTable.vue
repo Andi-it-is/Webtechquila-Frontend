@@ -57,12 +57,13 @@ div(class="content-wrapper-single")
                 )
                   div()
                     q-btn(v-close-popup label="Schließen" color="primary" flat)
-    p best fit
-    div(class="grid-container")
-      // use pagination for available timeslots.
-      div(v-for="i in 10")
-        div(class="time-slot")
-          p {{ i }}
+    div(:class="seatPreferenceCheckbox ? 'disabled-timeslot-container' : 'timeslot-container'")
+      a.hint {{ bestFitReservation.timeSlots.length && tableOptions.wasUserInput ? `${bestFitReservation.timeSlots.length} Ergebnisse` : '' }}
+      //- p {{ !bestFitReservation.timeSlots.length && !tableOptions.wasUserInput ? 'Keine verfügbaren Zeiträume an diesem Tag' : 'Bitte Gäste und Datum wählen' }}
+      div(class="grid-container")
+        div(v-for="option in bestFitReservation.timeSlots")
+          div(class="time-slot")
+            p(style="margin: 0") {{ option }}
 
     q-separator(class="mini-separator")
     div(class="individual-input-container")
@@ -75,14 +76,18 @@ div(class="content-wrapper-single")
     div(v-if="seatPreferenceCheckbox")
       p sizeOptimizedOptions
       div(class="svg-container")
-        RestaurantFloor(@orderData="handleEmit" style="overflow: scroll")
+        RestaurantFloor(
+          v-model:tableData="tableOptions.data" 
+          @orderData="handleEmit" 
+          style="overflow: scroll"
+        )
 
 </template>
 
 <script setup>
 import RestaurantFloor from 'src/components/reservation/RestaurantFloor.vue';
 import { useCheckoutStore } from 'src/stores/checkoutStore';
-import { ref, onMounted, computed, onUnmounted, watch } from 'vue';
+import { ref, onMounted, computed, onUnmounted, watch, reactive } from 'vue';
 import { useRouter, onBeforeRouteLeave } from 'vue-router';
 import { api } from 'src/boot/axios';
 
@@ -108,6 +113,14 @@ const guestsOptions = [
   { value: 8, label: "8" },
   { value: 9, label: "9 oder mehr"},
 ]
+
+const tableOptions = reactive({
+  wasUserInput: false,
+  data: {}
+})
+const bestFitReservation = ref({
+  timeSlots : []
+})
 
 // start date (usually today) and end date range, in which the user is allowed to make a seat reservation
 let allowedStartDate;
@@ -213,8 +226,21 @@ async function getAvailableTimeslots() {
       guests: reservationData.value.guests.value,
       date: reservationData.value.date
     }
-    const response = await api.post('/timeslots', reqObj)
-    console.log(response)
+    const response = await (await api.post('/timeslots', reqObj)).data
+
+    tableOptions.wasUserInput = true
+    // filling table svg
+    const svgTableOptions = response.sizeOptimizedTables
+    tableOptions.data = svgTableOptions // data for defineModel in Component. Might need all data?
+
+    // filling data for non-svg reservations
+    bestFitReservation.value = response.bestFit
+    bestFitReservation.value.timeSlots.forEach((element) => {
+      element.selected = false
+    })
+
+
+    console.log('res ', response)
   } else {
     console.log("getAvailableTimeslots() ausgeführt")
   }
@@ -337,8 +363,8 @@ const pageNumber = ref(1)
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 1rem;
-  /* margin: auto; */
-  max-height: 250px;
+  max-height: 150px;
+  overflow-y: scroll;
 }
 .order-btn-container{
   display: flex;
@@ -348,6 +374,18 @@ const pageNumber = ref(1)
 .btn-primary{
   background-color: var(--primary);
   color: var(--text-action);
+}
+.disabled-timeslot-container {
+  cursor: not-allowed;
+  opacity: 0.3;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.timeslot-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 .time-slot{
   display: flex; 
@@ -405,7 +443,9 @@ h2 {
   gap: 4rem; 
   padding: 2rem;
 }
-
+.hint{
+  font-size: 1em;
+}
 @media (max-width: 1300px) {
   .img-wrapper:nth-child(n + 4) {
     display: none;

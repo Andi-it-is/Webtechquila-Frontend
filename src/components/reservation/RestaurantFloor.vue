@@ -491,7 +491,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-189">
               <g>
-                <rect class="table" @click="handleClick($event)" id="1" x="170" y="132.25" width="240" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="1" x="170" y="132.25" width="240" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
             </g>
@@ -568,7 +568,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-199">
               <g>
-                <rect class="table" @click="handleClick($event)" id="2" x="550" y="132.25" width="240" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="2" x="550" y="132.25" width="240" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
             </g>
@@ -645,7 +645,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-209">
               <g>
-                <rect class="table" @click="handleClick($event)" id="3"  x="900" y="132.25" width="240" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="3"  x="900" y="132.25" width="240" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
             </g>
@@ -690,7 +690,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-286">
               <g>
-                <rect class="table" @click="handleClick($event)" id="4"  x="130" y="332" width="120" height="60" fill="#ffffff" stroke="#000000"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="4"  x="130" y="332" width="120" height="60" fill="#ffffff" stroke="#000000"
                   transform="rotate(-90,190,362)" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
@@ -736,7 +736,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-280">
               <g>
-                <rect class="table" @click="handleClick($event)" id="5"  x="330" y="332" width="120" height="60" fill="#ffffff" stroke="#000000"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="5"  x="330" y="332" width="120" height="60" fill="#ffffff" stroke="#000000"
                   transform="rotate(-90,390,362)" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
@@ -800,7 +800,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-258">
               <g>
-                <rect class="table" @click="handleClick($event)" id="6"  x="100" y="512" width="180" height="60" fill="#ffffff" stroke="#000000"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="6"  x="100" y="512" width="180" height="60" fill="#ffffff" stroke="#000000"
                   transform="rotate(-90,190,542)" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
@@ -864,7 +864,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-266">
               <g>
-                <rect class="table" @click="handleClick($event)" id="7"  x="300" y="512" width="180" height="60" fill="#ffffff" stroke="#000000"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="7"  x="300" y="512" width="180" height="60" fill="#ffffff" stroke="#000000"
                   transform="rotate(-90,390,542)" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
@@ -928,7 +928,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-234">
               <g>
-                <rect class="table" @click="handleClick($event)" id="8"  x="100" y="722" width="180" height="60" fill="#ffffff" stroke="#000000"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="8"  x="100" y="722" width="180" height="60" fill="#ffffff" stroke="#000000"
                   transform="rotate(-90,190,752)" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
@@ -992,7 +992,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-242">
               <g>
-                <rect class="table" @click="handleClick($event)" id="9"  x="300" y="722" width="180" height="60" fill="#ffffff" stroke="#000000"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="9"  x="300" y="722" width="180" height="60" fill="#ffffff" stroke="#000000"
                   transform="rotate(-90,390,752)" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
@@ -1038,7 +1038,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-296">
               <g>
-                <rect class="table" @click="handleClick($event)" id="10"  x="510" y="332" width="120" height="60" fill="#ffffff" stroke="#000000"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="10"  x="510" y="332" width="120" height="60" fill="#ffffff" stroke="#000000"
                   transform="rotate(-90,570,362)" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
@@ -1102,7 +1102,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-304">
               <g>
-                <rect class="table" @click="handleClick($event)" id="11"  x="480" y="512" width="180" height="60" fill="#ffffff" stroke="#000000"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="11"  x="480" y="512" width="180" height="60" fill="#ffffff" stroke="#000000"
                   transform="rotate(-90,570,542)" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
@@ -1184,7 +1184,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-400">
               <g>
-                <rect class="table" @click="handleClick($event)" id="12"  x="640" y="482" width="240" height="60" fill="#ffffff" stroke="#000000"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="12"  x="640" y="482" width="240" height="60" fill="#ffffff" stroke="#000000"
                   transform="rotate(-90,760,512)" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
@@ -1248,7 +1248,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-250">
               <g>
-                <rect class="table" @click="handleClick($event)" id="13"  x="480" y="722" width="180" height="60" fill="#ffffff" stroke="#000000"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="13"  x="480" y="722" width="180" height="60" fill="#ffffff" stroke="#000000"
                   transform="rotate(-90,570,752)" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
@@ -1312,7 +1312,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-312">
               <g>
-                <rect class="table" @click="handleClick($event)" id="14"  x="670" y="722" width="180" height="60" fill="#ffffff" stroke="#000000"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="14"  x="670" y="722" width="180" height="60" fill="#ffffff" stroke="#000000"
                   transform="rotate(-90,760,752)" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
@@ -1356,7 +1356,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-369">
               <g>
-                <rect class="table" @click="handleClick($event)" id="15"  x="880" y="372.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="15"  x="880" y="372.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
             </g>
@@ -1399,7 +1399,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-375">
               <g>
-                <rect class="table" @click="handleClick($event)" id="16"  x="1030" y="372.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="16"  x="1030" y="372.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
             </g>
@@ -1442,7 +1442,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-357">
               <g>
-                <rect class="table" @click="handleClick($event)" id="17"  x="880" y="502.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="17"  x="880" y="502.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
             </g>
@@ -1485,7 +1485,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-363">
               <g>
-                <rect class="table" @click="handleClick($event)" id="18"  x="1030" y="502.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="18"  x="1030" y="502.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
             </g>
@@ -1528,7 +1528,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-345">
               <g>
-                <rect class="table" @click="handleClick($event)" id="19"  x="880" y="632.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="19"  x="880" y="632.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
             </g>
@@ -1571,7 +1571,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-351">
               <g>
-                <rect class="table" @click="handleClick($event)" id="20"  x="1030" y="632.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="20"  x="1030" y="632.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
             </g>
@@ -1614,7 +1614,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-333">
               <g>
-                <rect class="table" @click="handleClick($event)" id="21"  x="880" y="762.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="21"  x="880" y="762.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
             </g>
@@ -1657,7 +1657,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-339">
               <g>
-                <rect class="table" @click="handleClick($event)" id="22"  x="1030" y="762.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="22"  x="1030" y="762.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
             </g>
@@ -1700,7 +1700,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-86">
               <g>
-                <rect class="table" @click="handleClick($event)" id="23"  x="120" y="1032.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="23"  x="120" y="1032.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
             </g>
@@ -1743,7 +1743,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-80">
               <g>
-                <rect class="table" @click="handleClick($event)" id="24"  x="120" y="1192.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="24"  x="120" y="1192.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
             </g>
@@ -1786,7 +1786,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-37">
               <g>
-                <rect class="table" @click="handleClick($event)" id="25"  x="280" y="1032.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="25"  x="280" y="1032.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
             </g>
@@ -1829,7 +1829,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-98">
               <g>
-                <rect class="table" @click="handleClick($event)" id="26" x="280" y="1192.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="26" x="280" y="1192.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
             </g>
@@ -1872,7 +1872,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-92">
               <g>
-                <rect class="table" @click="handleClick($event)" id="27"  x="440" y="1032.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="27"  x="440" y="1032.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
             </g>
@@ -1915,7 +1915,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-104">
               <g>
-                <rect class="table" @click="handleClick($event)" id="28"  x="440" y="1192.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="28"  x="440" y="1192.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
             </g>
@@ -1958,7 +1958,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-134">
               <g>
-                <rect class="table" @click="handleClick($event)" id="29"  x="600" y="1032.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="29"  x="600" y="1032.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
             </g>
@@ -2001,7 +2001,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-140">
               <g>
-                <rect class="table" @click="handleClick($event)" id="30"  x="600" y="1192.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="30"  x="600" y="1192.25" width="120" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
             </g>
@@ -2078,7 +2078,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-179">
               <g>
-                <rect class="table" @click="handleClick($event)" id="31"  x="760" y="1032.25" width="240" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="31"  x="760" y="1032.25" width="240" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
             </g>
@@ -2155,7 +2155,7 @@
             </g>
             <g data-cell-id="w0mS0AHN3TlPm9hZP8EG-152">
               <g>
-                <rect class="table" @click="handleClick($event)" id="32"  x="760" y="1192.25" width="240" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
+                <rect class="table" tabindex="0" @click="handleClick($event)" @keypress.enter="handleClick($event)" id="32"  x="760" y="1192.25" width="240" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"
                   style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));" />
               </g>
             </g>
@@ -2183,7 +2183,7 @@
         </g>
       </g>
     </g>
-  </svg>
+  </svg>  
 
   <q-dialog v-model="openDialog" persistent>
     <q-card v-if="tableAvailable">
@@ -2213,107 +2213,77 @@
 
 </template>
 
-<script>
-import { computed, defineComponent, onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { useCheckoutStore } from 'src/stores/checkoutStore';
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { useCheckoutStore } from 'src/stores/checkoutStore'
 
-export default defineComponent({
-  
-  name: 'RestaurantFloor',
+defineOptions({
+  name: 'RestaurantFloor'
+})
 
-  emits: 'orderData',
+const emit = defineEmits(['orderData'])
+const tableData = defineModel('tableData')
 
-  methods: {
-    sendToParent() {
-      this.$emit('orderData', { tableId: this.selectedTable })
+const router = useRouter()
+const store = useCheckoutStore()
+
+const showing = ref(false)
+const svgContainer = ref(null)
+const tableColors = ref([])
+const openDialog = ref(false)
+const selectedTable = ref(null)
+const tableAvailable = ref(true)
+
+function sendToParent() {
+  emit('orderData', { tableId: selectedTable.value })
+}
+
+async function handleClick(event) {
+  selectedTable.value = event.target.id
+  openDialog.value = true
+}
+
+onMounted(() => {
+  const elements = document.querySelectorAll('.table')
+
+  elements.forEach((element, index) => {
+    // appending table number to the svg
+    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
+    text.textContent = index + 1
+
+    const bbox = element.getBBox()
+    text.setAttribute('x', bbox.x + bbox.width / 2)
+    text.setAttribute('y', bbox.y + bbox.height / 2 + 5)
+    text.setAttribute('text-anchor', 'middle')
+    text.setAttribute('fill', 'black')
+    text.setAttribute('font-size', '20')
+
+    const parentGroup = element.closest('g[data-cell-id]')
+    if (parentGroup) {
+      parentGroup.appendChild(text)
     }
-  },
+  })
 
-  setup() {
-
-    const router = useRouter()
-    const showing = ref(false)
-    const svgContainer = ref(null);
-    const tableColors = ref([])
-    const openDialog = ref(false)
-    const selectedTable = ref(null)
-    const tableAvailable = ref(true)
-    const store = useCheckoutStore()
-
-    async function handleClick(event) {
-      const color = event.target.style.fill
-      
-      // if (color == 'rgb(73, 236, 122)') {
-      //   tableAvailable.value = true
-
-      // } else if (color == 'rgb(227, 24, 55)') {
-      //   tableAvailable.value = false
-      // }
-
-      selectedTable.value = event.target.id
-      openDialog.value = true
-
-    }
-
-    const allTables = document.querySelectorAll('.table')
-
-    onMounted(() => {
-
-      const elements = document.querySelectorAll('.table')
-      //console.log("NodeElements / Tische", elements)
-      // map tables from database to each NodeElement. thus every table number can be associated with each table object from db 
-      //console.log("tables aus database", "{ TODO }")
-
-      elements.forEach((element, index) => {
-
-        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
-        
-        text.textContent = index + 1
-
-        // text element positioning
-        const bbox = element.getBBox(); // nearest rect, which fully surrounds the text element. in this case the .table
-        //console.log("Bbox", bbox)
-        text.setAttribute('x', bbox.x + bbox.width / 2);
-        text.setAttribute('y', bbox.y + bbox.height / 2  + 5 );
-        text.setAttribute('text-anchor', 'middle');
-        text.setAttribute('fill', 'black');
-        text.setAttribute('font-size', '20');
-        // Appending text to the PARENT GROUP of the target element (rect)
-        const parentGroup = element.closest('g[data-cell-id]'); // Find the nearest parent group
-        if (parentGroup) {
-          parentGroup.appendChild(text);
-        }
+  // setInterval(() => {
+  //   console.log(tableData.value)
+  // }, 5000)
 
 
-      })
-
-      //tableColors.value = Array.from(elements).map(()=>"green")
-
-      
-    });
+})
 
 
-
-    return {
-      showing,
-      svgContainer,
-      handleClick,
-      openDialog,
-      selectedTable,
-      tableAvailable
-    }
-  }
-
-});
 </script>
+
 
 <style>
 .table:hover {
   stroke-width: 6;
   fill: #D3D3D3 !important;
 }
-
+.table:focus-visible {
+  outline: 6px solid black;
+}
 svg {
   width: 100%;
   height: auto; /* Or a specific height */
