@@ -2189,7 +2189,20 @@
     <q-card v-if="tableAvailable">
       <q-card-section class="row items-center">
         <q-avatar icon="list_alt" color="white" text-color="black" />
-        <span class="q-ml-sm">Weiter zur Buchung von Tisch {{ selectedTable }}</span>
+        <span class="q-ml-sm">Weiter zur Buchung von Tisch {{ selectedTableId }}</span>
+      </q-card-section>
+      <q-card-section>
+        <div class="grid-container">
+          <div v-for="option in selectedTable.timeSlots" :key="option.time">
+            <div
+              :class="option.selected ? 'time-slot-selected' : 'time-slot'"
+              tabindex="0"
+              @click="selectTimeSlot(option)"
+            >
+              <p style="margin: 0">{{ option.time }}</p>
+            </div>
+          </div>
+        </div>
       </q-card-section>
 
       <q-card-actions class="justify-between">
@@ -2198,23 +2211,29 @@
       </q-card-actions>
     </q-card>
 
-    <q-card v-if="!tableAvailable">
+
+    <q-card v-if="!tableAvailable" class="bg-secondary text-white">
       <q-card-section class="row items-center">
-        <q-avatar icon="list_alt" color="white" text-color="black" />
-        <span class="q-ml-sm">Tisch {{ selectedTable }} kann für den Zeitraum nicht gebucht werden</span>
+        <q-avatar icon="report_problem" text-color="white" />
+        
+        <span class="q-ml-sm">
+          Der Tisch {{ selectedTableId }} kann für die gegebene Anzahl an Personen oder für das eingegebene Datum nicht gebucht werden. Probiere andere Eingaben.
+        </span>
       </q-card-section>
 
-      <q-card-actions class="justify-between">
-        <q-btn flat label="Zurück" color="primary" @click="openDialog = false" />
+      <q-card-actions class="justify-end">
+        <!-- Zurück-Button in weißem Flat-Stil -->
+        <q-btn label="Zurück" class="action-button" @click="openDialog = false" />
       </q-card-actions>
     </q-card>
+
 
   </q-dialog>
 
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCheckoutStore } from 'src/stores/checkoutStore'
 
@@ -2232,22 +2251,94 @@ const showing = ref(false)
 const svgContainer = ref(null)
 const tableColors = ref([])
 const openDialog = ref(false)
-const selectedTable = ref(null)
-const tableAvailable = ref(true)
+const selectedTableId = ref(null)
+const mapCounter = ref(0)
+
+const selectedTable = computed(() => {
+  const table = tableData.value.find((t => t.tableId == selectedTableId.value))
+  return table
+})
+const selectedTime = ref("")
+const tableAvailable = computed(() => {
+  const isTableInData = tableData.value.some((t => t.tableId == selectedTableId.value))
+  return isTableInData
+}) || false
+
+const reservation = ref({
+  table: selectedTable.value,
+  time: selectedTime.value
+})
 
 function sendToParent() {
-  emit('orderData', { tableId: selectedTable.value })
+  emit('orderData', { tableId: selectedTableId.value })
 }
 
 async function handleClick(event) {
-  selectedTable.value = event.target.id
+  selectedTableId.value = event.target.id
   openDialog.value = true
 }
 
-onMounted(() => {
-  const elements = document.querySelectorAll('.table')
+watch(tableData, () => {
+  console.log("exec omc", tableData)
+  onModelChange()
+})
 
-  elements.forEach((element, index) => {
+function selectTimeSlot(timeSlot) {
+
+  selectedTable.value.timeSlots.forEach((t) => {
+    t.selected = false
+  })
+  selectedTable.value.selectedTimeslot = timeSlot.time
+  timeSlot.selected = true
+
+  reservation.value.table = selectedTable
+  reservation.value.time = timeSlot
+
+  console.log("stv", selectedTable.value)
+
+}
+
+function onModelChange() {
+
+  // NodeList → Array umwandeln
+  let tablesDOMArray = Array.from(tablesDOM)
+
+  // Map für schnellen Lookup
+  const elementMap = new Map(tablesDOMArray.map(el => [el.id, el]))
+  // console.log("elem map" , elementMap)
+
+  // Alle Tische durchgehen
+  tablesDOM.forEach(el => {
+    if (elementMap.has(el.id) && tableData.value.find(t => String(t.tableId) === el.id)) {
+      // Match → grün
+      el.style.fill = '#08C94C'
+    } else {
+      // Non-Match → grau
+      // console.log(tableData.value.find(t => String(t.tableId) === el.id))
+      el.style.fill = 'lightgray'
+      el.style.stroke = 'gray'
+    }
+  })
+
+  /**
+   * ! TODO find solution to not infinitely map td 
+   */
+  tableData.value.timeSlots = tableData.value.forEach((entry) => {
+    entry.timeSlots = entry.timeSlots.map(time => ({
+      time,
+      selected: false
+    }))
+  })
+}
+
+// every DOM Item that is a table
+let tablesDOM = []
+
+onMounted(() => {
+  
+  tablesDOM = document.querySelectorAll('.table')
+  
+  tablesDOM.forEach((element, index) => {
     // appending table number to the svg
     const text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
     text.textContent = index + 1
@@ -2265,9 +2356,11 @@ onMounted(() => {
     }
   })
 
-  // setInterval(() => {
-  //   console.log(tableData.value)
-  // }, 5000)
+  onModelChange()
+
+  setInterval(() => {
+    console.log("tableData ", selectedTable.value)
+  }, 5000)
 
 
 })
@@ -2278,15 +2371,48 @@ onMounted(() => {
 
 <style>
 .table:hover {
-  stroke-width: 6;
-  fill: #D3D3D3 !important;
+  stroke-width: 2;
+  outline: 4px solid black !important;
 }
 .table:focus-visible {
-  outline: 6px solid black;
+  outline: 4px solid black !important;
 }
 svg {
   width: 100%;
   height: auto; /* Or a specific height */
 }
-
+.action-button {
+  background-color: var(--bg-light);
+  color: var(--text);
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+}
+.timeslot-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.time-slot{
+  display: flex; 
+  align-items: center;
+  justify-content: center; 
+  border-radius: 1rem; 
+  padding: 0.5rem; 
+  background-color: var(--bg-dark);
+}
+.time-slot:hover {
+  cursor: pointer;
+}
+.time-slot-selected{
+  display: flex; 
+  align-items: center;
+  justify-content: center; 
+  border-radius: 1rem; 
+  padding: 0.5rem; 
+  background-color: var(--secondary);
+  color: var(--text-action);
+}
 </style>

@@ -58,28 +58,26 @@ div(class="content-wrapper-single")
                   div()
                     q-btn(v-close-popup label="Schließen" color="primary" flat)
     div(:class="seatPreferenceCheckbox ? 'disabled-timeslot-container' : 'timeslot-container'")
-      a.hint {{ bestFitReservation.timeSlots.length && tableOptions.wasUserInput ? `${bestFitReservation.timeSlots.length} Ergebnisse` : '' }}
+      a(tabindex="0" style="width: fit-content; padding: 4px").hint {{ bestFitReservation.timeSlots.length && tableOptions.wasUserInput ? `${bestFitReservation.timeSlots.length} Ergebnisse` : '' }}
       //- p {{ !bestFitReservation.timeSlots.length && !tableOptions.wasUserInput ? 'Keine verfügbaren Zeiträume an diesem Tag' : 'Bitte Gäste und Datum wählen' }}
       div(class="grid-container")
-        div(v-for="option in bestFitReservation.timeSlots")
-          div(class="time-slot")
-            p(style="margin: 0") {{ option }}
+        div(v-for="option in bestFitReservation.timeSlots" :key="option.time")
+          div(:class="option.selected ? 'time-slot-selected' : 'time-slot'" tabindex="0" @click="selectTimeSlot(option)")
+            p(style="margin: 0") {{ option.time }}
 
     q-separator(class="mini-separator")
     div(class="individual-input-container")
-      q-checkbox(v-model="seatPreferenceCheckbox") Ich möchte aussuchen, wo ich sitze
+      q-checkbox(v-model="seatPreferenceCheckbox" :disable="!enableCheckbox" style="width: fit-content") Ich möchte aussuchen, wo ich sitze
 
     div(class="order-btn-container" v-if="!seatPreferenceCheckbox")
       q-btn(class="btn-primary" type="submit" @click="onSubmit()") Reservieren
 
   transition(name="slide-card")
     div(v-if="seatPreferenceCheckbox")
-      p sizeOptimizedOptions
       div(class="svg-container")
         RestaurantFloor(
           v-model:tableData="tableOptions.data" 
           @orderData="handleEmit" 
-          style="overflow: scroll"
         )
 
 </template>
@@ -93,10 +91,10 @@ import { api } from 'src/boot/axios';
 
 const store = useCheckoutStore()
 
-const activeTab = ref('a')
 const router = useRouter()
 
 const seatPreferenceCheckbox = ref(false)
+const enableCheckbox = ref(false)
 
 const reservationData = ref({
   guests: null,
@@ -111,15 +109,16 @@ const guestsOptions = [
   { value: 6, label: "6 "},
   { value: 7, label: "7"},
   { value: 8, label: "8" },
-  { value: 9, label: "9 oder mehr"},
+  // { value: 9, label: "9 oder mehr"},
 ]
-
+const showManyGuestsWarning = ref(false)
 const tableOptions = reactive({
   wasUserInput: false,
   data: {}
 })
 const bestFitReservation = ref({
-  timeSlots : []
+  timeSlots: [],
+  selectedTimeSlot: ''
 })
 
 // start date (usually today) and end date range, in which the user is allowed to make a seat reservation
@@ -192,22 +191,19 @@ async function navToCheckout() {
   store.setOrderData(reservationData.value)
 
   const result = await api.get('/hello')
-  console.log(result)
   router.push(`/reservation/checkout`)
 
 }
 
 const formRef = ref(null)
+let mapCounter = 0
 
 function onSubmit() {
-  console.log("submiiiiiiiiittttttttttted")
 
   formRef.value.validate().then(valid => {
     if (!valid) return
 
     else {
-
-      console.log('Form submitted:', reservationData.value)
       navToCheckout()
     }
   })
@@ -222,28 +218,55 @@ async function getAvailableTimeslots() {
 
   // api call only if both user inputs are not empty
   if (reservationData.value.guests && reservationData.value.date) {
+
+    // if form is invalid (i.e. invalid but not empty date, return), clear table data and disable svg view
+    const valid = await formRef.value.validate()
+    if (!valid) {
+      seatPreferenceCheckbox.value = false
+      bestFitReservation.value.timeSlots = []
+      bestFitReservation.value.selectedTimeSlot = ""
+      tableOptions.value = []
+
+      console.log('Form invalid:', valid)
+      return
+    }
+
     const reqObj = {
       guests: reservationData.value.guests.value,
       date: reservationData.value.date
     }
+    if (reqObj.guests > 8) {
+      showManyGuestsWarning.value = true
+      return
+    }
+    showManyGuestsWarning.value = false
+
     const response = await (await api.post('/timeslots', reqObj)).data
 
     tableOptions.wasUserInput = true
+    enableCheckbox.value = true
+
     // filling table svg
     const svgTableOptions = response.sizeOptimizedTables
     tableOptions.data = svgTableOptions // data for defineModel in Component. Might need all data?
 
     // filling data for non-svg reservations
     bestFitReservation.value = response.bestFit
-    bestFitReservation.value.timeSlots.forEach((element) => {
-      element.selected = false
-    })
-
-
-    console.log('res ', response)
+    bestFitReservation.value.timeSlots = bestFitReservation.value.timeSlots.map(time => ({
+      time,
+      selected: false
+    }))
   } else {
-    console.log("getAvailableTimeslots() ausgeführt")
+    enableCheckbox.value = false
   }
+}
+
+function selectTimeSlot(timeSlot) {
+  bestFitReservation.value.timeSlots.forEach((t) => {
+    t.selected = false
+  })
+  bestFitReservation.value.selectedTimeSlot = timeSlot.time
+  timeSlot.selected = true
 }
 
 onMounted(() => {
@@ -270,10 +293,8 @@ onMounted(() => {
 
 onBeforeRouteLeave((to, from, next) => {
   if (to.path === '/reservation/checkout') {
-    console.log("remained store untouched")
     next()
   } else {
-    console.log("cleared store")
     store.clear()
     next()
   }
@@ -375,12 +396,14 @@ const pageNumber = ref(1)
   background-color: var(--primary);
   color: var(--text-action);
 }
+
 .disabled-timeslot-container {
   cursor: not-allowed;
   opacity: 0.3;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  pointer-events: none;
 }
 .timeslot-container {
   display: flex;
@@ -394,6 +417,18 @@ const pageNumber = ref(1)
   border-radius: 1rem; 
   padding: 0.5rem; 
   background-color: var(--bg-dark);
+}
+.time-slot-selected{
+  display: flex; 
+  align-items: center;
+  justify-content: center; 
+  border-radius: 1rem; 
+  padding: 0.5rem; 
+  background-color: var(--secondary);
+  color: var(--text-action);
+}
+.time-slot:hover {
+  cursor: pointer;
 }
 
 .slide-card-enter-from {
