@@ -2233,7 +2233,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, computed, onUnmounted } from 'vue'
+import { ref, onMounted, watch, computed, onUnmounted, toRaw } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCheckoutStore } from 'src/stores/checkoutStore'
 
@@ -2270,7 +2270,7 @@ const reservation = ref({
 })
 
 function sendToParent() {
-  emit('orderData', { tableId: selectedTableId.value })
+  emit('orderData', toRaw(reservation.value))
 }
 
 async function handleClick(event) {
@@ -2285,13 +2285,16 @@ watch(tableData, () => {
 
 function selectTimeSlot(timeSlot) {
 
-  selectedTable.value.timeSlots.forEach((t) => {
-    t.selected = false
+  tableData.value.forEach((t) => {
+    t.timeSlots.forEach((slot) => {
+      slot.selected = false
+    })
   })
+
   selectedTable.value.selectedTimeslot = timeSlot.time
   timeSlot.selected = true
 
-  reservation.value.table = selectedTable
+  reservation.value.table = selectedTable.value
   reservation.value.time = timeSlot
 
   console.log("stv", selectedTable.value)
@@ -2358,14 +2361,9 @@ onMounted(() => {
 
   onModelChange()
 
-  setInterval(() => {
-    console.log("tableData ", selectedTable.value)
-  }, 5000)
-
 })
 
 onUnmounted(() => {
-
   tableData.value.forEach(entry => {
     entry.timeSlots = entry.timeSlots.map(item => item.time);
   });

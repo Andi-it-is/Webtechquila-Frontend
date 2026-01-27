@@ -176,24 +176,36 @@ function validateGermanDate(val) {
 }
 
 /**
- * Function to handle event emit from a component. when resrving table through this component, nav to checkout
+ * Function to handle event emit from a component. when reserving table through this component, nav to checkout
  * @param data data from RestaurantFloor Component
  */
 function handleEmit(data) {
-  const tableId = data.tableId
-  store.setOrderId(tableId)
+  const tableId = data.table.tableId
+  console.log("data from child", data)
+  console.log("data from child", data.table)
 
-  navToCheckout()
+  store.setTableId(tableId)
+
+  navToCheckout(data)
 }
 
-async function navToCheckout() {
+async function navToCheckout(data) {
+  
+  store.setGuestsDate(reservationData.value.guests.value, reservationData.value.date)
 
-  store.setOrderData(reservationData.value)
+  if (data == null) {
+    store.setTime(bestFitReservation.value.selectedTimeSlot)
+    delete bestFitReservation.value.timeSlots
+    store.setBestFit(bestFitReservation.value)
+  } else {
 
-  const result = await api.get('/hello')
+    if (store.getTableId() === data.table.tableId && data !== undefined) {
+      store.setTime(data.time.time)
+    }
+  }
+
   router.push(`/reservation/checkout`)
-
-}
+  }
 
 const formRef = ref(null)
 

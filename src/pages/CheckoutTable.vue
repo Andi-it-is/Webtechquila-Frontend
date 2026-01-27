@@ -58,6 +58,8 @@ div(style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap-re
         .read-only-label Personen
         p {{ reservationData.guests }}
 
+  pre() {{ storeData }}
+
 </template>
 
 <script setup>
@@ -102,6 +104,7 @@ function onSubmit() {
     }
   })
 }
+const storeData = ref()
 
 // 1. Browser reload/close protection
 const beforeUnloadHandler = (event) => {
@@ -126,19 +129,28 @@ onMounted(() => {
 
   window.addEventListener("beforeunload", beforeUnloadHandler)
 
-  const orderData = store.getOrderData()
-  // if the global store is empty, leave page 
-  if (!orderData) {
-    return router.push("/")
-  }
-  reservationData.value.guests = orderData.guests.value
-  reservationData.value.date = orderData.date
-  reservationData.value.time = orderData.time
-  console.log("store. get data ", store.getOrderData())
+  // const orderData = store.getOrderData()
+  // // if the global store is empty, leave page 
+  // if (!orderData) {
+  //   return router.push("/")
+  // }
+  // reservationData.value.guests = orderData.guests.value
+  // reservationData.value.date = orderData.date
+  // reservationData.value.time = orderData.time
+
+
+  const stoa = store.getEverything()
+  storeData.value = stoa
+  console.log("stoa ", stoa)
+
+
+
 })
 
 onUnmounted(() => {
   window.removeEventListener("beforeunload", beforeUnloadHandler)
+
+  store.clear()
 })
 
 </script>

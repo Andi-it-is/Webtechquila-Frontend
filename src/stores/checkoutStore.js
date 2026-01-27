@@ -1,32 +1,65 @@
 import { defineStore } from 'pinia'
 
 export const useCheckoutStore = defineStore('checkout', {
+
   state: () => ({
     orderId: null,
-    orderData: null,
+
+    // handled by q-input 
+    guests: null,
+    date: null,
+
+    // handled 2 ways
+    time: null,
+    tableId: null,
+
+    // keep hidden from user
+    bestFit: null
   }),
 
   actions: {
 
-    getOrderId() {
-      return this.orderId
+    getTableId() {
+      return this.tableId
     },
 
-    getOrderData() {
-      return this.orderData
+    setGuestsDate(guests, date) {
+      this.guests = guests
+      this.date = date
     },
 
-    setOrderId(id) {
-      this.orderId = id
+    setTime(time) {
+      this.time = time
     },
 
-    setOrderData(data) {
-      this.orderData = data
+    setTableId(id) {
+      this.tableId = id
+    },
+
+    setBestFit(data) {
+      this.bestFit = data
+    },
+
+    getEverything() {
+      let obj = {
+        orderId: this.orderId,
+        guests: this.guests,
+        date: this.date,
+        time: this.time,
+        tableId: this.tableId,
+        bestFit: this.bestFit
+      }
+
+      return obj
     },
 
     clear() {
       this.orderId = null
-      this.orderData = null
+      this.guests = null
+      this.date = null
+      this.time = null
+      this.tableId = null
+      this.bestFit = null
     }
   }
 })
