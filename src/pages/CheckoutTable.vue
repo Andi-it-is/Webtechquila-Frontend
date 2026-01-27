@@ -45,7 +45,7 @@ div(v-if="isLoaded" style="display: flex; justify-content: center; gap: 1rem; fl
 
   div(style="background-color: var(--bg); padding: 1rem; align-self: flex-end; display: flex; flex-direction: column; border-radius: 1rem")
     // condition based on if vue store has a table nummer (i.e. user wants to decide where to sit)
-    p.hint(v-if="tableWish") Tischnummer 13
+    p.hint {{ tableId }}
     h4 Reservierungsdetails
     div(style="display: flex; flex-wrap: wrap; gap: 4px")
       div(style="min-width: 100px")
@@ -106,6 +106,13 @@ function onSubmit() {
   })
 }
 const storeData = ref()
+const tableId = computed(() => {
+
+  let tid = storeData.value.tableId
+  if (tid) {
+    return `Tisch ${tid}`
+  }
+})
 
 // 1. Browser reload/close protection
 const beforeUnloadHandler = (event) => {
@@ -140,8 +147,8 @@ onMounted(() => {
   // reservationData.value.time = orderData.time
 
 
-  const stoa = store.getEverything()
-  storeData.value = stoa
+  const orderInformations = store.getEverything()
+  storeData.value = orderInformations
 
   isLoaded.value = true
 
