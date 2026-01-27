@@ -1,7 +1,7 @@
 <template lang="pug">
 
 
-div(style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap-reverse")
+div(v-if="isLoaded" style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap-reverse")
   div(style="background-color: var(--bg); padding: 2rem; max-width: 600px; gap: 2rem; display: flex; flex-direction: column; border-radius: 1rem; max-width: 460px")
     q-form(
       style="display: flex; flex-direction: column; gap: 1rem"
@@ -58,7 +58,7 @@ div(style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap-re
         .read-only-label Personen
         p {{ reservationData.guests }}
 
-  pre() {{ storeData }}
+pre() {{ storeData }}
 
 </template>
 
@@ -70,6 +70,7 @@ const store = useCheckoutStore()
 
 const router = useRouter()
 const tableWish = ref(true)
+const isLoaded = ref(false)
 
 const isEarlyLeave = ref(true)
 const formRef = ref(null)
@@ -83,8 +84,8 @@ const checkoutData = ref({
 })
 const reservationData = ref({
   guests: null,
-  date: new Date(),
-  time: new Date(),
+  date: null,
+  time: null,
 })
 
 function navToReservation(){
@@ -141,9 +142,8 @@ onMounted(() => {
 
   const stoa = store.getEverything()
   storeData.value = stoa
-  console.log("stoa ", stoa)
 
-
+  isLoaded.value = true
 
 })
 
