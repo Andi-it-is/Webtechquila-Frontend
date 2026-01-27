@@ -2233,7 +2233,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, computed } from 'vue'
+import { ref, onMounted, watch, computed, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCheckoutStore } from 'src/stores/checkoutStore'
 
@@ -2362,7 +2362,13 @@ onMounted(() => {
     console.log("tableData ", selectedTable.value)
   }, 5000)
 
+})
 
+onUnmounted(() => {
+
+  tableData.value.forEach(entry => {
+    entry.timeSlots = entry.timeSlots.map(item => item.time);
+  });
 })
 
 

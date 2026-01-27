@@ -196,7 +196,6 @@ async function navToCheckout() {
 }
 
 const formRef = ref(null)
-let mapCounter = 0
 
 function onSubmit() {
 
@@ -208,6 +207,14 @@ function onSubmit() {
     }
   })
 }
+
+// watch checkbox toggle, to unselect bestFit timeslot
+watch(seatPreferenceCheckbox, () => {
+  bestFitReservation.value.selectedTimeSlot = ""
+  bestFitReservation.value.timeSlots.forEach((entry) => {
+    entry.selected = false
+  })
+}, { deep: true} )
 
 // watch changes in user input, get new timeslot results
 watch(reservationData.value, () => {
