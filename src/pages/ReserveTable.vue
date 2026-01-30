@@ -58,7 +58,7 @@ div(class="content-wrapper-single")
                   div()
                     q-btn(v-close-popup label="Schließen" color="primary" flat)
     div(:class="seatPreferenceCheckbox ? 'disabled-timeslot-container' : 'timeslot-container'")
-      a(tabindex="0" style="width: fit-content; padding: 4px").hint {{ bestFitReservation.timeSlots.length && tableOptions.wasUserInput ? `${bestFitReservation.timeSlots.length} Ergebnisse` : '' }}
+      a(tabindex="0" style="width: fit-content; padding: 4px").hint {{ bestFitReservation.timeSlots?.length && tableOptions.wasUserInput ? `${bestFitReservation.timeSlots.length} Ergebnisse` : '' }}
       //- p {{ !bestFitReservation.timeSlots.length && !tableOptions.wasUserInput ? 'Keine verfügbaren Zeiträume an diesem Tag' : 'Bitte Gäste und Datum wählen' }}
       div(class="grid-container")
         div(v-for="option in bestFitReservation.timeSlots" :key="option.time")
@@ -183,8 +183,6 @@ function validateGermanDate(val) {
  */
 function handleEmit(data) {
   const tableId = data.table.tableId
-  console.log("data from child", data)
-  console.log("data from child", data.table)
 
   store.setTableId(tableId)
 
@@ -192,7 +190,7 @@ function handleEmit(data) {
 }
 
 async function navToCheckout(data) {
-  
+
   store.setGuestsDate(reservationData.value.guests.value, reservationData.value.date)
 
   if (data == null) {
@@ -206,8 +204,16 @@ async function navToCheckout(data) {
     }
   }
 
-  router.push(`/reservation/checkout`)
-  }
+  // create checkout Attempt
+  const body = store.getEverything()
+  const result = await (api.post("/init/reservation", body))
+  const attemptId = result.data.aid
+
+  router.push({
+    path: `/reservation/checkout`,
+    query: { aid: attemptId }
+  })
+}
 
 const formRef = ref(null)
 
@@ -255,8 +261,6 @@ async function getAvailableTimeslots() {
       bestFitReservation.value.timeSlots = []
       bestFitReservation.value.selectedTimeSlot = ""
       tableOptions.value = []
-
-      console.log('Form invalid:', valid)
       return
     }
 

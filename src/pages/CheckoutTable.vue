@@ -92,7 +92,6 @@ function navToReservation(){
   return router.push("/reservation")
 }
 function onSubmit() {
-  console.log("submiiiiiiiiittttttttttted")
 
   formRef.value.validate().then(valid => {
     if (!valid) return
@@ -149,6 +148,8 @@ onMounted(() => {
 
   const orderInformations = store.getEverything()
   storeData.value = orderInformations
+
+  console.log("store data ", storeData.value)
 
   isLoaded.value = true
 

@@ -2291,7 +2291,6 @@ async function handleClick(event) {
 }
 
 watch(tableData, () => {
-  console.log("exec omc", tableData)
   onModelChange()
 })
 
@@ -2309,8 +2308,6 @@ function selectTimeSlot(timeSlot) {
   reservation.value.table = selectedTable.value
   reservation.value.time = timeSlot
 
-  console.log("stv", selectedTable.value)
-
 }
 
 function onModelChange() {
@@ -2320,7 +2317,6 @@ function onModelChange() {
 
   // Map für schnellen Lookup
   const elementMap = new Map(tablesDOMArray.map(el => [el.id, el]))
-  // console.log("elem map" , elementMap)
 
   // Alle Tische durchgehen
   tablesDOM.forEach(el => {
@@ -2329,7 +2325,6 @@ function onModelChange() {
       el.style.fill = '#08C94C'
     } else {
       // Non-Match → grau
-      // console.log(tableData.value.find(t => String(t.tableId) === el.id))
       el.style.fill = 'lightgray'
       el.style.stroke = 'gray'
     }

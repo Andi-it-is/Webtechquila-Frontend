@@ -3,7 +3,6 @@ import { defineStore } from 'pinia'
 export const useCheckoutStore = defineStore('checkout', {
 
   state: () => ({
-    orderId: null,
 
     // handled by q-input 
     guests: null,
@@ -42,7 +41,6 @@ export const useCheckoutStore = defineStore('checkout', {
 
     getEverything() {
       let obj = {
-        orderId: this.orderId,
         guests: this.guests,
         date: this.date,
         time: this.time,
@@ -54,7 +52,6 @@ export const useCheckoutStore = defineStore('checkout', {
     },
 
     clear() {
-      this.orderId = null
       this.guests = null
       this.date = null
       this.time = null
