@@ -58,22 +58,26 @@ div(v-if="isLoaded" style="display: flex; justify-content: center; gap: 1rem; fl
         .read-only-label Personen
         p {{ reservationData.guests }}
 
-pre() {{ storeData }}
+pre() {{ order }}
 
 </template>
 
 <script setup>
 import { ref, onMounted, computed, onUnmounted } from 'vue';
-import { useRouter, onBeforeRouteLeave } from 'vue-router'
+import { useRouter, onBeforeRouteLeave, useRoute } from 'vue-router'
 import { useCheckoutStore } from 'src/stores/checkoutStore';
+import { api } from 'src/boot/axios';
 const store = useCheckoutStore()
 
 const router = useRouter()
-const tableWish = ref(true)
+const route = useRoute()
+
 const isLoaded = ref(false)
 
 const isEarlyLeave = ref(true)
 const formRef = ref(null)
+
+const order = ref()
 
 const checkoutData = ref({
   firstname: '',
@@ -104,14 +108,7 @@ function onSubmit() {
     }
   })
 }
-const storeData = ref()
-const tableId = computed(() => {
 
-  let tid = storeData.value.tableId
-  if (tid) {
-    return `Tisch ${tid}`
-  }
-})
 
 // 1. Browser reload/close protection
 const beforeUnloadHandler = (event) => {
@@ -132,24 +129,20 @@ onBeforeRouteLeave((to, from, next) => {
   next(answer)
 })
 
-onMounted(() => {
+onMounted( async() => {
 
   window.addEventListener("beforeunload", beforeUnloadHandler)
 
-  // const orderData = store.getOrderData()
-  // // if the global store is empty, leave page 
-  // if (!orderData) {
-  //   return router.push("/")
-  // }
-  // reservationData.value.guests = orderData.guests.value
-  // reservationData.value.date = orderData.date
-  // reservationData.value.time = orderData.time
+  const reservation = await api.get("/reservation", {
+    params: {
+      aid: route.query.aid
+    }
+  })
 
+  order.value = reservation.data
 
-  const orderInformations = store.getEverything()
-  storeData.value = orderInformations
+  console.log("reservation mit dieser aid : ", reservation)
 
-  console.log("store data ", storeData.value)
 
   isLoaded.value = true
 
