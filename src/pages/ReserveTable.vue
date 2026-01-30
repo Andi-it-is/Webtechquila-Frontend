@@ -65,7 +65,7 @@ div(class="content-wrapper-single")
           div(:class="option.selected ? 'time-slot-selected' : 'time-slot'" tabindex="0" @click="selectTimeSlot(option)")
             p(style="margin: 0") {{ option.time }}
 
-    q-separator(class="mini-separator")
+    q-separator(class="mini-separator") 
     div(class="individual-input-container")
       q-checkbox(v-model="seatPreferenceCheckbox" :disable="!enableCheckbox" style="width: fit-content") Ich möchte aussuchen, wo ich sitze
 
@@ -88,10 +88,12 @@ import { useCheckoutStore } from 'src/stores/checkoutStore';
 import { ref, onMounted, computed, onUnmounted, watch, reactive } from 'vue';
 import { useRouter, onBeforeRouteLeave } from 'vue-router';
 import { api } from 'src/boot/axios';
+import { useQuasar } from 'quasar';
 
 const store = useCheckoutStore()
 
 const router = useRouter()
+const $q = useQuasar()
 
 const seatPreferenceCheckbox = ref(false)
 const enableCheckbox = ref(false)
@@ -213,6 +215,14 @@ function onSubmit() {
 
   formRef.value.validate().then(valid => {
     if (!valid) return
+
+    if (!bestFitReservation.value.selectedTimeSlot) {
+      $q.notify({
+        type: 'negative',
+        message: "Uhrzeit auswählen"
+      })
+      return 
+    }
 
     else {
       navToCheckout()

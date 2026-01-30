@@ -2191,6 +2191,7 @@
         <q-avatar icon="list_alt" color="white" text-color="black" />
         <span class="q-ml-sm">Weiter zur Buchung von Tisch {{ selectedTableId }}</span>
       </q-card-section>
+      <q-separator/>
       <q-card-section>
         <div class="grid-container">
           <div v-for="option in selectedTable.timeSlots" :key="option.time">
@@ -2204,6 +2205,7 @@
           </div>
         </div>
       </q-card-section>
+      <q-separator/>
 
       <q-card-actions class="justify-between">
         <q-btn flat label="Zurück" color="primary" @click="openDialog = false" />
@@ -2236,6 +2238,7 @@
 import { ref, onMounted, watch, computed, onUnmounted, toRaw } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCheckoutStore } from 'src/stores/checkoutStore'
+import { useQuasar } from 'quasar'
 
 defineOptions({
   name: 'RestaurantFloor'
@@ -2268,8 +2271,17 @@ const reservation = ref({
   table: selectedTable.value,
   time: selectedTime.value
 })
+const $q = useQuasar()
 
 function sendToParent() {
+
+  if (!reservation.value.time) {
+    $q.notify({
+      type: 'negative',
+      message: "Uhrzeit auswählen"
+    })
+    return 
+  }
   emit('orderData', toRaw(reservation.value))
 }
 
@@ -2323,9 +2335,6 @@ function onModelChange() {
     }
   })
 
-  /**
-   * ! TODO find solution to not infinitely map td 
-   */
   tableData.value.timeSlots = tableData.value.forEach((entry) => {
     entry.timeSlots = entry.timeSlots.map(time => ({
       time,
