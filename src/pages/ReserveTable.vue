@@ -2,7 +2,7 @@
 
 div(class="stockfootage-container")
   div(v-for="link in stockfootage" :key="link" class="img-wrapper")
-    img(:src="link")
+    img(:src="link" aria-label="stockfootage food")
     
 div(style="display: flex; justify-content: center")
   h2 Tisch Reservieren 

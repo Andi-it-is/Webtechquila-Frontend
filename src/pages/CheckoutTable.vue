@@ -59,6 +59,8 @@ div(v-if="isLoaded" style="display: flex; justify-content: center; gap: 1rem; fl
         p {{ reservationData.guests }}
 
 pre() {{ order }}
+pre ---------
+pre() {{ chk }}
 
 </template>
 
@@ -78,6 +80,7 @@ const isEarlyLeave = ref(true)
 const formRef = ref(null)
 
 const order = ref()
+const chk = ref()
 
 const checkoutData = ref({
   firstname: '',
@@ -91,6 +94,11 @@ const reservationData = ref({
   date: null,
   time: null,
 })
+const tableId = computed(() => {
+  if (order.value.prefferedSeat) {
+    return `Tischnummer ${order.value.tableId}`
+  }
+})
 
 function navToReservation(){
   return router.push("/reservation")
@@ -102,11 +110,29 @@ function onSubmit() {
 
     else {
 
-      console.log('forrm ', checkoutData.value, store.getOrderData())
+      console.log('forrm submitted, hier den 2. Teil des Checkout Prozesses starten (mail mit validate und so)')
+
 
       // api request to start email confirmation process
     }
   })
+}
+
+function isoToGermanDate(isoDate) {
+  const date = new Date(isoDate)
+  if (isNaN(date.getTime())) return ''
+
+  const dd = String(date.getDate()).padStart(2, '0')
+  const mm = String(date.getMonth() + 1).padStart(2, '0')
+  const yyyy = date.getFullYear()
+
+  return `${dd}.${mm}.${yyyy}`
+}
+function formatTimeToGerman(time) {
+  const match = time?.match(/^(\d{2}):(\d{2})/)
+  if (!match) return ''
+
+  return `${match[1]}:${match[2]} Uhr`
 }
 
 
@@ -133,19 +159,20 @@ onMounted( async() => {
 
   window.addEventListener("beforeunload", beforeUnloadHandler)
 
-  const reservation = await api.get("/reservation", {
-    params: {
-      aid: route.query.aid
-    }
-  })
+  const reservation = await (api.get("/reservation", { params: { aid: route.query.aid } }))
 
-  order.value = reservation.data
-
-  console.log("reservation mit dieser aid : ", reservation)
-
+  order.value = reservation.data.data.reservation
+  chk.value = reservation.data.data
 
   isLoaded.value = true
 
+  // setInterval(() => {
+  //   console.log(tableId.value)
+  // }, 3000)
+
+  reservationData.value.date = isoToGermanDate(order.value.date)
+  reservationData.value.time = formatTimeToGerman(order.value.time)
+  reservationData.value.guests = order.value.guests
 })
 
 onUnmounted(() => {
