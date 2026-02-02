@@ -46,6 +46,7 @@ onMounted(async () => {
   // validate order and shit
   success.value = true 
 
+  // add time to leave the page
 })
 
 </script>

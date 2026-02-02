@@ -1,6 +1,6 @@
 <template lang="pug">
 
-div(v-if="isLoaded" style="display: flex; align-items: center; flex-direction: column")
+div(v-if="isLoaded" style="display: flex; align-items: center; flex-direction: column; max-height: fit-content")
   h3(style="width: fit-content") Reservierungsformular ausfüllen  
   div(style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap-reverse")
     div(style="background-color: var(--bg); padding: 2rem; max-width: 600px; gap: 2rem; display: flex; flex-direction: column; border-radius: 1rem; max-width: 460px")
@@ -59,13 +59,14 @@ div(v-if="isLoaded" style="display: flex; align-items: center; flex-direction: c
           p {{ reservationData.guests }}
 
 
-div(v-if="confirmOrderView")
+q-dialog(v-model="confirmOrderView" persistent)
   div(
-    style="background-color: var(--bg); border: 1px solid var(--secondary); padding: 1rem; border-radius: 1rem; text-align: center; max-width: 600px; margin: auto; font-size: 1.25rem; margin-top: 4rem"
+    style="background-color: var(--bg); border: 1px solid var(--secondary); padding: 1rem; border-radius: 1rem; text-align: center; max-width: 600px; font-size: 1.25rem; min-height: 150px"
   )
     strong Überprüfe dein E-mail Postfach!
-    p(style="margin:8px 0 0;font-size: 14px;")
-      | Wir haben dir eine E-mail mit dem Bestätigungslink gesendet. Überprüfe dein E-mail Postfach und folge dem Link.
+    div(style="display: flex; justify-content: center; align-items: center")
+      p(style="font-size: 14px;")
+        | Wir haben dir eine E-mail mit dem Bestätigungslink gesendet. Überprüfe dein E-mail Postfach und folge dem Link.
 
 </template>
 
@@ -74,6 +75,7 @@ import { ref, onMounted, computed, onUnmounted } from 'vue';
 import { useRouter, onBeforeRouteLeave, useRoute } from 'vue-router'
 import { useCheckoutStore } from 'src/stores/checkoutStore';
 import { api } from 'src/boot/axios';
+import { useQuasar } from 'quasar';
 const store = useCheckoutStore()
 
 const router = useRouter()
@@ -81,6 +83,7 @@ const route = useRoute()
 
 const isLoaded = ref(false)
 const confirmOrderView = ref(false)
+const $q = useQuasar()
 
 const isEarlyLeave = ref(true)
 const formRef = ref(null)
@@ -120,12 +123,14 @@ function onSubmit() {
       // api request to start email confirmation process
       checkoutData.value.checkoutAttemptId = route.query.aid
       const result = await (api.post("/init/checkoutAttempt", checkoutData.value))
-      console.log("result from init checkoutAttempt" , result)
+      console.log("result from init checkoutAttempt", result)
 
-      // change frontends view, so the user knows he should follow the provided link
-      isLoaded.value = false
+      $q.notify({
+        type: 'positive',
+        message: 'E-mail versandt'
+      })
+
       confirmOrderView.value = true
-
       // once the confirm links is pressed/followed at, confirm order
 
 

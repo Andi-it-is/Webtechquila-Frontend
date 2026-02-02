@@ -2,7 +2,7 @@
 
   q-layout(view="hHh LpR lFr")
   
-    q-page-container(style="padding: 1rem; margin-top: 4rem")
+    q-page-container(style="padding: 1rem; padding-top: 4rem")
       router-view()
 </template>
 

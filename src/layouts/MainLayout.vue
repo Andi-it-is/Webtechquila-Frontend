@@ -14,7 +14,7 @@
     q-page-container()
       router-view()
 
-      q-separator()
+      q-separator(style="margin-top: 10rem")
 
       div(class="legal-container")
         p.sharp Zuletzt aktualisiert am {{ today }}
