@@ -8,7 +8,7 @@
           q-btn(class="darkmode-button" flat round @click="toggleDarkMode()") darkmode
         div(class="navigation-button-container")
           q-btn(class="nav-button" unelevated @click="navToIndex()") IndexPage
-          q-btn(class="nav-button" unelevated) text
+          q-btn(class="nav-button" unelevated @click="navToMenu()") Menü-Übersicht
           q-btn(class="primary-button" unelevated style="margin-left: 0.5rem" @click.prevent="navToIndex('contact')") reservieren
 
     q-page-container()
@@ -46,6 +46,12 @@ const today = computed(() => {
 function navToIndex(){
   return router.push("/")
 }
+function navToMenu(){
+  return router.push("/menu") 
+
+}
+
+
 
 onMounted(() => {
 

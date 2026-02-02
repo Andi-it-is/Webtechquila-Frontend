@@ -6,9 +6,8 @@
       style="width: 200px; height: 200px"
     >
     <q-btn class="action-button" @click="navToReservation()" label="Klick mich zur Reservier Page"/>
+    <q-btn></q-btn>
   </q-page>
-
-
 
 </template>
 
