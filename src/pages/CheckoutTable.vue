@@ -1,66 +1,71 @@
 <template lang="pug">
 
-
-div(v-if="isLoaded" style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap-reverse")
-  div(style="background-color: var(--bg); padding: 2rem; max-width: 600px; gap: 2rem; display: flex; flex-direction: column; border-radius: 1rem; max-width: 460px")
-    q-form(
-      style="display: flex; flex-direction: column; gap: 1rem"
-      ref="formRef" 
-      @submit="onSubmit"
-      greedy
-    )
-      div(style="display: flex; gap: 1rem")
+div(v-if="isLoaded" style="display: flex; align-items: center; flex-direction: column")
+  h3(style="width: fit-content") Reservierungsformular ausfüllen  
+  div(style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap-reverse")
+    div(style="background-color: var(--bg); padding: 2rem; max-width: 600px; gap: 2rem; display: flex; flex-direction: column; border-radius: 1rem; max-width: 460px")
+      q-form(
+        style="display: flex; flex-direction: column; gap: 1rem"
+        ref="formRef" 
+        @submit="onSubmit"
+        greedy
+      )
+        div(style="display: flex; gap: 1rem")
+          div(style="width: 100%")
+            label Vorname
+            q-input(
+              v-model="checkoutData.firstName" dense outlined 
+              :rules="[ val => val.length != 0 || 'Vorname eingeben' ]"
+            )
+          div(style="width: 100%")
+            label Nachname
+            q-input(
+              v-model="checkoutData.lastName" dense outlined
+              :rules="[ val => val.length != 0 || 'Nachname eingeben' ]"
+            )
         div(style="width: 100%")
-          label Vorname
+          label E-mail
           q-input(
-            v-model="checkoutData.firstname" dense outlined 
-            :rules="[ val => val.length != 0 || 'Vorname eingeben' ]"
+            v-model="checkoutData.email" dense outlined
+            :rules="[ val => val.length != 0 || 'E-mail eingeben' ]"
           )
         div(style="width: 100%")
-          label Nachname
+          label Telefonnummer
           q-input(
-            v-model="checkoutData.lastname" dense outlined
-            :rules="[ val => val.length != 0 || 'Nachname eingeben' ]"
+            v-model="checkoutData.tel" dense outlined
+            :rules="[ val => val.length != 0 || 'Telefonnummer eingeben' ]"
           )
-      div(style="width: 100%")
-        label E-mail
-        q-input(
-          v-model="checkoutData.email" dense outlined
-          :rules="[ val => val.length != 0 || 'E-mail eingeben' ]"
-        )
-      div(style="width: 100%")
-        label Telefonnummer
-        q-input(
-          v-model="checkoutData.tel" dense outlined
-          :rules="[ val => val.length != 0 || 'Telefonnummer eingeben' ]"
-        )
-      div(style="width: 100%")
-        label Notiz an das Restaurant (Optional)
-        q-input(v-model="checkoutData.note" dense outlined type="textarea")
-    div(style="display: flex; justify-content: space-between; margin-top: 1rem")
-      q-btn(class="action-button" unelevated @click="navToReservation()") Abbrechen
-      q-btn(class="btn-primary" tyoe="submit" @click="onSubmit()") Tisch reservieren
+        div(style="width: 100%")
+          label Notiz an das Restaurant (Optional)
+          q-input(v-model="checkoutData.customerNote" dense outlined type="textarea")
+      div(style="display: flex; justify-content: space-between; margin-top: 1rem")
+        q-btn(class="action-button" unelevated @click="navToReservation()") Abbrechen
+        q-btn(class="btn-primary" tyoe="submit" @click="onSubmit()") Tisch reservieren
 
-    
+      
 
-  div(style="background-color: var(--bg); padding: 1rem; align-self: flex-end; display: flex; flex-direction: column; border-radius: 1rem")
-    // condition based on if vue store has a table nummer (i.e. user wants to decide where to sit)
-    p.hint {{ tableId }}
-    h4 Reservierungsdetails
-    div(style="display: flex; flex-wrap: wrap; gap: 4px")
-      div(style="min-width: 100px")
-        .read-only-label Datum
-        p {{ reservationData.date }}
-      div(style="min-width: 100px")
-        .read-only-label Uhrzeit
-        p {{ reservationData.time }}
-      div(style="min-width: 100px")
-        .read-only-label Personen
-        p {{ reservationData.guests }}
+    div(style="background-color: var(--bg); padding: 1rem; align-self: flex-end; display: flex; flex-direction: column; border-radius: 1rem")
+      p.hint {{ tableId }}
+      h4 Reservierungsdetails
+      div(style="display: flex; flex-wrap: wrap; gap: 4px")
+        div(style="min-width: 100px")
+          .read-only-label Datum
+          p {{ reservationData.date }}
+        div(style="min-width: 100px")
+          .read-only-label Uhrzeit
+          p {{ reservationData.time }}
+        div(style="min-width: 100px")
+          .read-only-label Personen
+          p {{ reservationData.guests }}
 
-pre() {{ order }}
-pre ---------
-pre() {{ chk }}
+
+div(v-if="confirmOrderView")
+  div(
+    style="background-color: var(--bg); border: 1px solid var(--secondary); padding: 1rem; border-radius: 1rem; text-align: center; max-width: 600px; margin: auto; font-size: 1.25rem; margin-top: 4rem"
+  )
+    strong Überprüfe dein E-mail Postfach!
+    p(style="margin:8px 0 0;font-size: 14px;")
+      | Wir haben dir eine E-mail mit dem Bestätigungslink gesendet. Überprüfe dein E-mail Postfach und folge dem Link.
 
 </template>
 
@@ -75,6 +80,7 @@ const router = useRouter()
 const route = useRoute()
 
 const isLoaded = ref(false)
+const confirmOrderView = ref(false)
 
 const isEarlyLeave = ref(true)
 const formRef = ref(null)
@@ -83,11 +89,12 @@ const order = ref()
 const chk = ref()
 
 const checkoutData = ref({
-  firstname: '',
-  lastname: '',
+  firstName: '',
+  lastName: '',
   email: '',
   tel: '',
-  note: '',
+  customerNote: '',
+  checkoutAttemptId: ''
 })
 const reservationData = ref({
   guests: null,
@@ -105,15 +112,23 @@ function navToReservation(){
 }
 function onSubmit() {
 
-  formRef.value.validate().then(valid => {
+  formRef.value.validate().then(async (valid) => {
     if (!valid) return
 
     else {
 
-      console.log('forrm submitted, hier den 2. Teil des Checkout Prozesses starten (mail mit validate und so)')
-
-
       // api request to start email confirmation process
+      checkoutData.value.checkoutAttemptId = route.query.aid
+      const result = await (api.post("/init/checkoutAttempt", checkoutData.value))
+      console.log("result from init checkoutAttempt" , result)
+
+      // change frontends view, so the user knows he should follow the provided link
+      isLoaded.value = false
+      confirmOrderView.value = true
+
+      // once the confirm links is pressed/followed at, confirm order
+
+
     }
   })
 }
@@ -184,7 +199,9 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-
+h3 {
+  font-size: 2rem;
+}
 h4 {
   margin: 0rem 0rem 1rem 0rem;
   font-weight: 600;

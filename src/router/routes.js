@@ -8,10 +8,11 @@ const routes = [
     ]
   },
   {
-    path: '/',
+    path: '/order',
     component: () => import('layouts/CheckoutLayout.vue'),
     children: [
-      { path: 'reservation/checkout', component: () => import('pages/CheckoutTable.vue') },
+      { path: 'checkout', component: () => import('pages/CheckoutTable.vue') },
+      { path: 'confirm', component: () => import('pages/ConfirmOrder.vue') },
     ]
   },
 

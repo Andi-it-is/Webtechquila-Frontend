@@ -210,7 +210,7 @@ async function navToCheckout(data) {
   const attemptId = result.data.aid
 
   router.push({
-    path: `/reservation/checkout`,
+    path: `/order/checkout`,
     query: { aid: attemptId }
   })
 }
