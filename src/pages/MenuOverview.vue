@@ -2,31 +2,47 @@
 
   <q-page padding>
   
- 
-
 
   <h1>Speisekarte</h1>
   <p>Unsere Speisekarte bietet eine Auswahl an verschiedenen Gerichten und Getränken.</p>
 
    <q-input
-     v-model="search"
-    label="Gericht suchen"
-    outlined
-    clearable
+      v-model="search"
+      label="Gericht suchen"
+      outlined
+      clearable
     />
+  <q-btn-toggle
+      v-model="selectedType"
+      toggle-color="primary"
+      text-color="black"
+      :options="[
+        { label: 'Alle', value: 'all' },
+        { label: 'Vegan', value: 'vegan' },
+        { label: 'Vegetarisch', value: 'vegetarisch' },
+        { label: 'Fleisch', value: 'fleisch' }
+    ]"
+  
+/>
 
-  <h2>Vorspeisen</h2>
-  <ul>
-    <li
+
+<<q-expansion-item label="Vorspeisen" default-opened>
+  <div class="q-gutter-md">
+    <q-card
       v-for="dish in filteredDishes.filter(d => d.category === 'Vorspeise')"
       :key="dish.id"
+      bordered
     >
-      {{ dish.name }}
-    </li>
-  </ul>
+      <q-card-section class="row items-center justify-between">
+        <div class="text-subtitle1">{{ dish.name }}</div>
+        <q-badge outline>{{ dish.type }}</q-badge>
+      </q-card-section>
+    </q-card>
+  </div>
+</q-expansion-item>
 
 
- <h2>Hauptspeisen</h2>
+<q-expansion-item label="Hauptspeisen" default-opened>
   <ul>
     <li
       v-for="dish in filteredDishes.filter(d => d.category === 'Hauptspeise')"
@@ -35,9 +51,9 @@
       {{ dish.name }}
     </li>
   </ul>
+</q-expansion-item>
 
-
-  <h2>Nachspeisen</h2>
+<q-expansion-item label="Nachspeisen" default-opened>
   <ul>
     <li
       v-for="dish in filteredDishes.filter(d => d.category === 'Nachspeise')"
@@ -46,6 +62,7 @@
       {{ dish.name }}
     </li>
   </ul>
+</q-expansion-item>
 
 </q-page>
 
@@ -56,36 +73,47 @@
 import { ref, computed } from 'vue'
 
 const search = ref('')
+const selectedType = ref('all')
+
 
 const filteredDishes = computed(() => {
-  const q = search.value.trim().toLowerCase()
+  const q = (search.value || '').trim().toLowerCase()
+  const t = selectedType.value
 
-  if (!q) {
-    return dishes
-  }
+  return dishes.filter(dish => {
+    const matchesSearch = !q || dish.name.toLowerCase().includes(q)
+    const matchesType = t === 'all' || dish.type === t
 
-  return dishes.filter(dish =>
-    dish.name.toLowerCase().includes(q)
-  )
+    return matchesSearch && matchesType
+  })
 })
+
+
 
 
 const dishes = [
   // Vorspeisen
-  { id: 1, name: 'Tomatensuppe', category: 'Vorspeise' },
-  { id: 2, name: 'Bruschetta', category: 'Vorspeise' },
-  { id: 8, name: 'Nutte', category: 'Vorspeise'},
+  { id: 1, name: 'Tomatensuppe', category: 'Vorspeise', type: 'vegan' },
+  { id: 2, name: 'Bruschetta', category: 'Vorspeise', type: 'vegetarisch' },
+  { id: 3, name: 'Vitello Tonato', category: 'Vorspeise', type: 'fleisch' },
+  { id: 4, name: 'Gemischter Salat', category: 'Vorspeise', type: 'vegan' },
+  { id: 5, name: 'Caprese', category: 'Vorspeise', type: 'vegetarisch' },
 
   // Hauptspeisen
-  { id: 3, name: 'Pasta Napoli', category: 'Hauptspeise' },
-  { id: 4, name: 'Veggie Burger', category: 'Hauptspeise' },
-  { id: 7, name: 'Veggie Burger', category: 'Hauptspeise' },
-  { id: 4, name: 'Veggie Burger', category: 'Hauptspeise' },
+  { id: 6, name: 'Pasta Napoli', category: 'Hauptspeise', type: 'vegan' },
+  { id: 7, name: 'Wiener Schnitzel', category: 'Hauptspeise', type: 'fleisch' },
+  { id: 8, name: 'Spaghetti Bolognese', category: 'Hauptspeise', type: 'fleisch' },
+  { id: 9, name: 'Lasagne', category: 'Hauptspeise', type: 'fleisch' },
+  { id: 10, name: 'Gemüsepfanne', category: 'Hauptspeise', type: 'vegan' },
 
   // Nachspeisen
-  { id: 5, name: 'Tiramisu', category: 'Nachspeise' },
-  { id: 6, name: 'Obstsalat', category: 'Nachspeise' }
+  { id: 11, name: 'Tiramisu', category: 'Nachspeise', type: 'vegetarisch' },
+  { id: 12, name: 'Obstsalat', category: 'Nachspeise', type: 'vegan' },
+  { id: 13, name: 'Panna Cotta', category: 'Nachspeise', type: 'vegetarisch' },
+  { id: 14, name: 'Schokokuchen', category: 'Nachspeise', type: 'vegetarisch' },
+  { id: 15, name: 'Sorbet', category: 'Nachspeise', type: 'vegan' }
 ]
+
 
 
 
