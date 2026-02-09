@@ -128,16 +128,19 @@ let allowedStartDate;
 let allowedEndDate; 
 
 /**
- * @param date quasar date to validate against
+ * @param date Quasar date string (YYYY/MM/DD)
  */
 function dateOptions(date) {
-
   const [y, m, d] = date.split('/').map(Number)
   const current = new Date(y, m - 1, d)
 
-  return current >= allowedStartDate && current <= allowedEndDate
+  const day = current.getDay()
 
+  if (day === 1 || day === 2) return false
+
+  return current >= allowedStartDate && current <= allowedEndDate
 }
+
 
 function parseGermanDateToDate(germanDateStr) {
   const [day, month, year] = germanDateStr.split('.').map(Number)
@@ -147,35 +150,37 @@ function parseGermanDateToDate(germanDateStr) {
 
 function validateGermanDate(val) {
 
-  // empty date, that matches the mask or empty value
   if (val === '__.__.____' || !val) {
     return 'Bitte ein Datum eingeben'
   }
 
   const regex = /^(\d{2})\.(\d{2})\.(\d{4})$/
-
   if (!regex.test(val)) {
     return 'Bitte TT.MM.JJJJ verwenden.'
   }
 
-  // checking if the given date is an actual date (i.e. leap years or short months)
   const [day, month, year] = val.split('.').map(Number)
   const parsedDate = new Date(year, month - 1, day)
-
-  // Example usage
-  const valDate = parseGermanDateToDate(val)
-
-  if (valDate < allowedStartDate || valDate > allowedEndDate) {
-    return 'Zeitraum muss zwischen heute und 90 Tage in der Zukunft liegen'
-  }
 
   const isValid =
     parsedDate.getFullYear() === year &&
     parsedDate.getMonth() === month - 1 &&
     parsedDate.getDate() === day
 
-  return isValid || 'Ungültiges Datum'
+  if (!isValid) return 'Ungültiges Datum'
+
+  if (parsedDate < allowedStartDate || parsedDate > allowedEndDate) {
+    return 'Zeitraum muss zwischen heute und 90 Tage in der Zukunft liegen'
+  }
+
+  const weekday = parsedDate.getDay()
+  if (weekday === 1 || weekday === 2) {
+    return 'Montag und Dienstag sind nicht buchbar'
+  }
+
+  return true
 }
+
 
 /**
  * Function to handle event emit from a component. when reserving table through this component, nav to checkout
