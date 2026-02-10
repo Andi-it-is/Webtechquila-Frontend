@@ -43,11 +43,6 @@ const defaultPosition = { lat: 51.2439498, lng: 6.7946395 };
 const zoom = ref(15);
 const markerPosition = ref({ ...defaultPosition });
 
-
-// Reset marker to default position
-const resetMarker = () => {
-  markerPosition.value = { ...defaultPosition };
-};
 </script>
 
 <style scoped>
@@ -56,25 +51,6 @@ const resetMarker = () => {
   height: 70vh;
   display: flex;
   flex-direction: column;
-}
-
-.info-panel {
-  background: white;
-  padding: 1rem 1.5rem;
-  border-bottom: 2px solid #e0e0e0;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.info-panel h3 {
-  margin: 0 0 0.75rem 0;
-  color: #2c3e50;
-  font-size: 1.25rem;
-}
-
-.info-panel p {
-  margin: 0.5rem 0;
-  color: #555;
-  font-size: 0.95rem;
 }
 
 .leaflet-map {
