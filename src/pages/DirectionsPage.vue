@@ -33,6 +33,7 @@
       p 
         br
         b Mit den öffentlichen Verkehrsmitteln
+        br
         | Den in unmittelbarer Nähe zum Hochschulzentrum gelegenen S-Bahnhof Düsseldorf Derendorf erreichst du vom Hauptbahnhof mit den S-Bahnlinien S1, S6 und S11. 
         | Darüber hinaus steuern die Buslinien 733, 752, 754, 756, 758, 807, 834 und SB55 Düsseldorf-Derendorf an.
 
