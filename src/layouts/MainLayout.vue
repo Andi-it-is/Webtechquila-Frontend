@@ -5,8 +5,8 @@
 
       div(class="header-container")
         div(class="navigation-button-container")
-          q-btn(class="nav-button" unelevated icon="home" @click="navToIndex()") Startseite
-          q-btn(class="primary-button" unelevated style="margin-left: 0.5rem" @click.prevent="navToReservation()") Tisch reservieren
+          q-btn(class="nav-button" unelevated icon="home" @click="navToIndex()" label="Startseite")
+          q-btn(class="primary-button" unelevated style="margin-left: 0.5rem" @click.prevent="navToReservation()" label="Tisch reservieren")
 
     q-page-container()
       router-view()
@@ -52,7 +52,7 @@ onMounted(() => {
   color: var(--text);
 }
 .q-header {
-  background-color: var(--bg-nav-topbar);
+  background-color: #FFFFFF30 !important;
   color: white !important;
 
   .q-toolbar__title {
@@ -78,11 +78,7 @@ onMounted(() => {
 .header-container{
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem;
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
+  padding: 10px 2%;
 } 
 .navigation-button-container{
   display: flex;
