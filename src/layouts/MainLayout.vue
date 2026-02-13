@@ -14,13 +14,13 @@
     q-page-container()
       router-view()
 
-      q-separator()
+      q-separator(style="margin-top: 10rem")
 
       div(class="legal-container")
         p.sharp Zuletzt aktualisiert am {{ today }}
         div(style="display: flex; gap: 1rem")
-          router-link(to="/impressum" aria-label="Impressum") Impressum
           router-link(to="/datenschutz" aria-label="Datenschutz") Datenschutz
+          router-link(to="/impressum" aria-label="Impressum") Impressum
 </template>
 
 
