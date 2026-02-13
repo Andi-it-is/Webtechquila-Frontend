@@ -5,9 +5,15 @@ div(class="impressum-container")
   h3 Impressum
   h4 Privatperson
 
-  p Diese Applikation ist ein reines Privatprojekt und beabsichtigt keine kommerziellen Interessen.
-  p Sollte es sonstige Anliegen geben, kontaktieren Sie folgende E-mail Adresse: andreasivanov80@gmail.com
+  p Andreas Ivanov
+  p Stahlenhauser Straße 39
+  p 40699 Erkrath
+  
+  h4 Kontaktmöglichkeiten
+  p E-mail-Adresse: andreasivanov80@gmail.com
 
+  h4 Weitere Kontaktmöglichkeiten 
+  p LinkedIn
     
 </template>
 
