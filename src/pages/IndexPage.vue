@@ -1,14 +1,6 @@
-<template>
-  <q-page class="flex flex-center">
-    <img
-      alt="Quasar logo"
-      src="~assets/quasar-logo-vertical.svg"
-      style="width: 200px; height: 200px"
-    >
-    <q-btn class="action-button" @click="navToReservation()" label="Klick mich zur Reservier Page"/>
-  </q-page>
-
-
+<template lang="pug">
+  q-page
+    pre hier slide show
 
 </template>
 
@@ -17,9 +9,6 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter()
 
-function navToReservation(){
-  return router.push("/reservation")
-}
 </script>
 
 

@@ -1,8 +1,8 @@
 {
   "name": "frontend",
   "version": "0.0.1",
-  "description": "Projektarbeit zu: Webtechnologie",
-  "productName": "Webtech",
+  "description": "Demoprojekt Webtechquila. Restaurantverwaltungsoftware. Software.",
+  "productName": "Demoprojekt Webtechquila",
   "author": "Andi-it-is <Andreasivanov80@gmail.com>",
   "type": "module",
   "private": true,
