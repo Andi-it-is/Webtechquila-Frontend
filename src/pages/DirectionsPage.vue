@@ -5,7 +5,7 @@
     h4 Anfahrtsbeschreibung
     .info-container
       div
-        p(style="font-weight: 700; font-size: 1.125rem") Kontakt
+        h5(style="font-weight: 700; font-size: 1.125rem; margin-bottom: 1rem") Kontakt
         p <strong>Restaurant Webtechquila </strong> 
         p Toulouser Allee 53,<br> 40476 Düsseldorf
         p(style="margin-bottom: 0px") Telefon: +49 1234 567890 
@@ -13,7 +13,7 @@
           | Mail:
           a( href="mailto:mail@mail.de" style="font-size: 14px; text-decoration: underline; margin-left: 4px") mail@mail.de
       div
-        p(style="font-weight: 700; font-size: 1.125rem") Öffnungszeiten
+        h5(style="font-weight: 700; font-size: 1.125rem; margin-bottom: 1rem") Öffnungszeiten
         p <strong>Montag & Dienstag</strong> <br/> Ruhetag
         p <strong>Mittwoch bis Sonntag</strong> <br/> 15:00 bis 23:00
     q-separator
@@ -69,7 +69,6 @@ h4 {
   margin: auto; 
   padding-top: 2rem;
   font-weight: 700;
-  margin-bottom: 1rem;
 }
 
 .content-wrapper {
