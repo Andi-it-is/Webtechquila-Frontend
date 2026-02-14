@@ -299,7 +299,7 @@ const drinks = [
 </script>
 
 
-<style>
+<style scoped>
 
 h1 {
   font-size: 4em;
