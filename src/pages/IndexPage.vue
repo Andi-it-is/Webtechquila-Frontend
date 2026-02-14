@@ -53,6 +53,35 @@
         p Reservier dir jetzt deinen Sitzplatz. Egal ob für ein Geschäftsessen oder mit der Freundesgruppe.
         q-btn(class="primary-button" label="Tisch reservieren" @click="navToReservation()")
 
+  q-dialog(v-model="globalUserWarningDialog" persistent transition-show="scale" transition-hide="scale")
+    q-card(style="width: 400px; max-width: 80vw; border-radius: 12px;")
+      q-card-section.row.items-center.q-pb-none
+        .text-h6.text-primary
+          q-icon.q-mr-sm(name="visibility_off" size="md")
+          | Hinweise zu dem Demoprojekt
+        q-space
+
+      q-card-section.q-pt-md
+        p.text-grey-10
+          | Auf dieser Seite werden keine personenbezogenen Daten dauerhaft gespeichert. 
+          | Ihre Eingaben bei der Reservierungsseite werden mit Beispielwerten überschrieben.
+          | Das Projekt dient lediglich zur Demonstration.
+        q-separator
+        p.text-grey-10
+          | Weiterhin ist es vorgesehen, dass dieses Demoprojekt E-mails versenden soll. 
+          | Da keine Emailadressen gespeichert werden, werden die Anweisungen der E-mails zusätzlich dem Nutzer dargestellt. 
+          | Die Anweisungen sind in grünen Kästen gekennzeichnet.
+        
+      q-card-actions.q-pa-md(align="right")
+        q-btn(
+          label="Verstanden" 
+          color="primary" 
+          rounded 
+          unelevated 
+          v-close-popup
+        )
+
+
 </template>
 
 <script setup>
@@ -60,7 +89,8 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 const slide = ref(1)
-const autoplay =  ref(true)
+const autoplay = ref(true)
+const globalUserWarningDialog = ref(true)
 
 const router = useRouter()
 
@@ -73,6 +103,7 @@ function navToDirection() {
 function navToReservation() {
   router.push("/reservation")
 }
+
 
 </script>
 

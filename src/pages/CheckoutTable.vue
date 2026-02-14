@@ -67,6 +67,10 @@ q-dialog(v-model="confirmOrderView" persistent)
     div(style="display: flex; justify-content: center; align-items: center")
       p(style="font-size: 14px;")
         | Wir haben dir eine E-mail mit dem Bestätigungslink gesendet. Überprüfe dein E-mail Postfach und folge dem Link.
+    q-separator
+    div(style="background-color: lightgreen; padding: 4px")
+      p(style="font-size: 14px") In der E-mail ist folgender Knopf mit einem Link enthalten. Der Link dient dazu, diese Reservierung zu bestätigen.
+      q-btn(@click="navToVal()" class="primary-button-outlined" label="E-mail Schritt simulieren")
 
 </template>
 
@@ -90,6 +94,21 @@ const formRef = ref(null)
 
 const order = ref()
 const chk = ref()
+
+// this would be the url inside the email
+const aid = ref()
+const rid = ref()
+function navToVal() {
+  isEarlyLeave.value = false
+
+  router.push({
+    path: `/order/confirm`,
+    query: {
+      rid: rid.value,
+      aid: aid.value,
+    }
+  })
+}
 
 const checkoutData = ref({
   firstName: '',
@@ -122,7 +141,17 @@ function onSubmit() {
 
       // api request to start email confirmation process
       checkoutData.value.checkoutAttemptId = route.query.aid
+
+      // clearing personal informations, just incase
+      checkoutData.value.firstName = "Max"
+      checkoutData.value.lastName = "Mustermann"
+      checkoutData.value.tel = "-"
+      checkoutData.value.email = "-"
       const result = await (api.post("/init/checkoutAttempt", checkoutData.value))
+
+      console.log("result babygirl das was in der email steht baby girl", result)
+      aid.value = result.data.message.checkoutAttemptId
+      rid.value = result.data.message.reservationId
 
       $q.notify({
         type: 'positive',
@@ -178,6 +207,7 @@ onMounted( async() => {
 
   window.addEventListener("beforeunload", beforeUnloadHandler)
 
+  console.log("routtttttttttt", route.fullPath)
   const reservation = await (api.get("/reservation", { params: { aid: route.query.aid } }))
 
   order.value = reservation.data.data.reservation
@@ -222,5 +252,11 @@ h4 {
 .btn-primary{
   background-color: var(--primary);
   color: var(--text-action);
+}
+.primary-button-outlined {
+  border: 2px solid var(--primary);
+  color: var(--text);
+  width: fit-content;
+  background-color: var(--bg-dark);
 }
 </style>

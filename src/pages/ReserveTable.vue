@@ -29,34 +29,34 @@ div(class="content-wrapper-single")
     )
       div(class="individual-input-container")
         label Personen
-        q-select(
-          v-model="reservationData.guests" 
-          dense outlined
-          style="width: 200px"
-          :options="guestsOptions"
-          :display-value="`${reservationData.guests ? reservationData.guests.label : '-'}`"
-          :rules="[ val => val || 'Anzahl der Personen auswählen']"
-        )
+          q-select(
+            v-model="reservationData.guests" 
+            dense outlined
+            style="width: 200px"
+            :options="guestsOptions"
+            :display-value="`${reservationData.guests ? reservationData.guests.label : '-'}`"
+            :rules="[ val => val || 'Anzahl der Personen auswählen']"
+          )
       div(class="individual-input-container")
         label Datum
-        q-input(
-          v-model="reservationData.date" 
-          :rules="[validateGermanDate]" 
-          mask="##.##.####" fill-mask dense outlined
-          style="width: 200px"
-        )
-          template(v-slot:append)
-            q-icon(name="event" class="cursor-pointer")
-              q-popup-proxy(cover transition-show="scale" transition-hide="scale")
-                q-date(
-                  v-model="reservationData.date"
-                  mask="DD.MM.YYYY"
-                  locale="de-DE"
-                  today-btn
-                  :options="dateOptions"
-                )
-                  div()
-                    q-btn(v-close-popup label="Schließen" color="primary" flat)
+          q-input(
+            v-model="reservationData.date" 
+            :rules="[validateGermanDate]" 
+            mask="##.##.####" fill-mask dense outlined
+            style="width: 200px"
+          )
+            template(v-slot:append)
+              q-icon(name="event" class="cursor-pointer")
+                q-popup-proxy(cover transition-show="scale" transition-hide="scale")
+                  q-date(
+                    v-model="reservationData.date"
+                    mask="DD.MM.YYYY"
+                    locale="de-DE"
+                    today-btn
+                    :options="dateOptions"
+                  )
+                    div()
+                      q-btn(v-close-popup label="Schließen" color="primary" flat)
     div(:class="seatPreferenceCheckbox ? 'disabled-timeslot-container' : 'timeslot-container'")
       a(tabindex="0" style="width: fit-content; padding: 4px").hint {{ bestFitReservation.timeSlots?.length && tableOptions.wasUserInput ? `${bestFitReservation.timeSlots.length} Ergebnisse` : '' }}
       //- p {{ !bestFitReservation.timeSlots.length && !tableOptions.wasUserInput ? 'Keine verfügbaren Zeiträume an diesem Tag' : 'Bitte Gäste und Datum wählen' }}
