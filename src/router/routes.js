@@ -5,6 +5,7 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/IndexPage.vue') },
       { path: 'reservation', component: () => import('pages/ReserveTable.vue') },
+      { path: 'menucard', component: () => import('pages/MenuOverview.vue') },
       { path: 'direction', component: () => import('pages/DirectionsPage.vue') },
       { path: 'impressum', component: () => import('pages/ImpressumPage.vue') },
       { path: 'datenschutz', component: () => import('pages/DatenschutzPage.vue') }
