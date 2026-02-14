@@ -12,8 +12,6 @@ import { ref, onMounted, computed } from 'vue';
 
 onMounted(() => {
 
-  console.log("checkout layout verwendet")
-
 })
 
 </script>

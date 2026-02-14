@@ -65,8 +65,7 @@ const autoplay =  ref(true)
 const router = useRouter()
 
 function navToDishmenu() {
-  console.log("flos feature")
-  // router.push("/dish")
+  router.push("/menucard")
 }
 function navToDirection() {
   router.push("/direction")

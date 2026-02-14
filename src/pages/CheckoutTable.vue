@@ -123,7 +123,6 @@ function onSubmit() {
       // api request to start email confirmation process
       checkoutData.value.checkoutAttemptId = route.query.aid
       const result = await (api.post("/init/checkoutAttempt", checkoutData.value))
-      console.log("result from init checkoutAttempt", result)
 
       $q.notify({
         type: 'positive',
@@ -185,10 +184,6 @@ onMounted( async() => {
   chk.value = reservation.data.data
 
   isLoaded.value = true
-
-  // setInterval(() => {
-  //   console.log(tableId.value)
-  // }, 3000)
 
   reservationData.value.date = isoToGermanDate(order.value.date)
   reservationData.value.time = formatTimeToGerman(order.value.time)

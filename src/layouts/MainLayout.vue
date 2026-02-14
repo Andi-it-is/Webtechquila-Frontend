@@ -60,8 +60,7 @@ function navToReservation() {
   return router.push("/reservation")
 }
 function navToDishmenu() {
-  console.log("flos feature")
-  // router.push("/dish")
+  router.push("/menucard")
 }
 function navToDirection() {
   router.push("/direction")
