@@ -167,6 +167,8 @@
   </div>
 </q-expansion-item>
 
+<q-separator/>
+
 <q-expansion-item default-opened v-model="filterModel.getraenke">
 
   <template v-slot:header>
@@ -299,6 +301,9 @@ const drinks = [
 
 <style>
 
+h1 {
+  font-size: 4em;
+}
 .accordion-title {
   font-size: 26px;
   font-weight: 500;
