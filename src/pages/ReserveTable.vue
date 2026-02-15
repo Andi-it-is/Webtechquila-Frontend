@@ -22,6 +22,7 @@ div(class="content-wrapper-single")
       p <strong>Mittwoch bis Sonntag</strong> <br/> 15:00 bis 23:00
 div(class="content-wrapper-single")
   div(class="form-wrapper")
+    p.text-grey-10 Hinweis: Eine Reservierung dauert pauschal 2 Stunden
     q-form(
       class="input-container" 
       ref="formRef" 
