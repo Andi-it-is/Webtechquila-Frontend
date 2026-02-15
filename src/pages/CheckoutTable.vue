@@ -149,7 +149,6 @@ function onSubmit() {
       checkoutData.value.email = "-"
       const result = await (api.post("/init/checkoutAttempt", checkoutData.value))
 
-      console.log("result babygirl das was in der email steht baby girl", result)
       aid.value = result.data.message.checkoutAttemptId
       rid.value = result.data.message.reservationId
 
@@ -207,7 +206,6 @@ onMounted( async() => {
 
   window.addEventListener("beforeunload", beforeUnloadHandler)
 
-  console.log("routtttttttttt", route.fullPath)
   const reservation = await (api.get("/reservation", { params: { aid: route.query.aid } }))
 
   order.value = reservation.data.data.reservation

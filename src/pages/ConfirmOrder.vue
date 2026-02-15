@@ -73,7 +73,6 @@ onMounted(async () => {
   }))
 
   summaryData.value = confirmOrder.data.key
-  console.log(summaryData.value)
   
   // validate order and shit
   success.value = true 
