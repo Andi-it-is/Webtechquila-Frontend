@@ -2,5 +2,5 @@
 npm install
 
 ## Projekt starten
-Quasar dev  
+quasar dev  
 
