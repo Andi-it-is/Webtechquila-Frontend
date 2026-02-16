@@ -8,7 +8,7 @@ import axios from 'axios'
 // "export default () => {}" function below (which runs individually
 // for each client)
 const api = axios.create({
-  baseURL: 'https://webtechnologie.andreasivanov.de/api/webtechapp/v1',
+  baseURL: 'http://localhost:4000/api/webtechapp/v1',
   timeout: 2000,
 })
 
